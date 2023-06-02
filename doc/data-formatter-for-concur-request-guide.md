@@ -1,8 +1,123 @@
-# Data Formatter for Concur Request
+![](./images/media/image1.jpeg){width="6.692913385826771in"
+height="3.374015748031496in"}
+
+PUBLIC
+
+Data Formatter for Concur Request
+
+V3.1
+
+This file has been created to assist TMCs with documenting proposals
+back to a GDS Container PNR as part of the Agency Proposal Powered by
+Compleat flow.
+
+This file will ensure accuracy when entering the remark lines into the
+GDS Container PNR and help provide all the mandatory elements to Travel
+Request.
+
+Table of ContentS
+
+CONFIGURATION [3](#configuration)
+
+[generate gds code Section
+[4](#generate-gds-code-section)](#generate-gds-code-section)
+
+[GENERAL Section [5](#general-section)](#general-section)
+
+[General section completion flow
+[5](#general-section-completion-flow)](#general-section-completion-flow)
+
+[General Section screenshot example
+[5](#general-section-screenshot-example)](#general-section-screenshot-example)
+
+[General Section table of definitions
+[6](#general-section-table-of-definitions)](#general-section-table-of-definitions)
+
+[General Section mandatory information
+[6](#general-section-mandatory-information)](#general-section-mandatory-information)
+
+[General Section optional information
+[7](#general-section-optional-information)](#general-section-optional-information)
+
+[AIR TAB [8](#air-tab)](#air-tab)
+
+[Air Tab completion flow
+[8](#air-tab-completion-flow)](#air-tab-completion-flow)
+
+[Air Tab screenshot example
+[8](#air-tab-screenshot-example)](#air-tab-screenshot-example)
+
+[Air Tab table of definitions
+[9](#air-tab-table-of-definitions)](#air-tab-table-of-definitions)
+
+[Air Tab mandatory information
+[9](#air-tab-mandatory-information)](#air-tab-mandatory-information)
+
+[Air Tab optional information
+[10](#air-tab-optional-information)](#air-tab-optional-information)
+
+[CAR TAB [11](#car-tab)](#car-tab)
+
+[Car Tab completion flow
+[11](#car-tab-completion-flow)](#car-tab-completion-flow)
+
+[Car Tab screenshot example
+[11](#car-tab-screenshot-example)](#car-tab-screenshot-example)
+
+[Car Tab table of definitions
+[12](#car-tab-table-of-definitions)](#car-tab-table-of-definitions)
+
+[Car Tab mandatory information
+[12](#car-tab-table-of-definitions)](#car-tab-table-of-definitions)
+
+[Car Tab optional information
+[13](#car-tab-optional-information)](#car-tab-optional-information)
+
+[HOTEL TAB [15](#hotel-tab)](#hotel-tab)
+
+[Hotel Tab completion flow
+[15](#hotel-tab-completion-flow)](#hotel-tab-completion-flow)
+
+[Hotel Tab screenshot example [15](#hotel-tab-1)](#hotel-tab-1)
+
+[Hotel Tab table of definitions
+[16](#hotel-tab-table-of-definitions)](#hotel-tab-table-of-definitions)
+
+[Hotel Tab mandatory information
+[16](#hotel-tab-mandatory-information)](#hotel-tab-mandatory-information)
+
+[Hotel Tab optional information [17](#_Toc94552504)](#_Toc94552504)
+
+[RAIL TAB [18](#rail-tab)](#rail-tab)
+
+[Rail Tab completion flow for one-way rail
+[18](#rail-tab-completion-flow-for-one-way-rail)](#rail-tab-completion-flow-for-one-way-rail)
+
+[Rail Tab one-way screenshot example
+[18](#rail-tab-one-way-screenshot-example)](#rail-tab-one-way-screenshot-example)
+
+[Rail Tab one-way table of definitions
+[19](#rail-tab-one-way-table-of-definitions)](#rail-tab-one-way-table-of-definitions)
+
+[Rail Tab one-way mandatory information
+[19](#rail-tab-one-way-mandatory-information)](#rail-tab-one-way-mandatory-information)
+
+[Rail Tab one-way optional information
+[20](#rail-tab-one-way-optional-information)](#rail-tab-one-way-optional-information)
+
+[SEGMENT COUNTERS: [21](#section-11)](#section-11)
+
+[CONCATENATION [21](#concatenation)](#concatenation)
+
+[REMARK SEPARATORS [22](#remark-separators)](#remark-separators)
+
+[VERSION HISTORY [23](#version-history)](#version-history)
+
+# 
 
 # CONFIGURATION
 
-The “Data Formatter for Concur Request” file has been programmed to
+The "Data Formatter for Concur Request" file has been programmed to
 perform a concatenation of the remarks generated to allow for more than
 one remark line to be copied at a time.
 
@@ -15,7 +130,7 @@ allowed for updates to the concatenation character and the number of
 instances in the output block.
 
 For more information on concatenation use and output examples, please
-see the [Concatenation](#concatenation) section below.
+see the [Concatenation](#section-11) section below.
 
 Prior to implementation, please determine the correct character and
 instances for your tool and GDS.
@@ -24,7 +139,7 @@ To edit the character and instances:
 
 -   Save the file
 
--   Right click the file, and “open with” any document editor.
+-   Right click the file, and "open with" any document editor.
 
 You will see the following at the beginning of the document:
 
@@ -33,15 +148,15 @@ You will see the following at the beginning of the document:
 
 // Concatenation Characters for each gds
 
-concatStringApollo = "+"
+concatStringApollo = \"+\"
 
-concatStringAmadeus = ";"
+concatStringAmadeus = \";\"
 
-concatStringGalileo = "+"
+concatStringGalileo = \"+\"
 
-concatStringSabre = "&"
+concatStringSabre = \"&\"
 
-concatStringWorldspan = "#"
+concatStringWorldspan = \"#\"
 
 // Number of Concatenations for each Gds
 
@@ -55,628 +170,337 @@ lineLimitSabre = 79
 
 lineLimitWorldspan = 80
 
--   To update the character, amend the concatString value inside " "
+/\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* Declaring GDS Array
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/
+
+const constGDS =
+\[\'Apollo\',\'Amadeus\',\'Galileo\',\'Sabre\',\'Worldspan\'\];
+
+const defaultGDS =\"Sabre\";
+
+const constSegCount = 99;
+
+-   To update the character, amend the concatString value inside \" \"
 
 -   To amend the number of concatenation instances, amend the lineLimit
     value after =\[space\]
+
+-   To amend the Default GDS amend the defaultGDS value after =\[space\]
+    with one of GDS values provided in the constGDS array
+
+-   To amend the maximum segments that can be created amend the
+    constSegCount value after =\[space\] with a number
 
 -   Save the changes
 
 -   Test the output against your GDS interaction tool, ensuring that the
     maximum value of instances is achieved
 
-# GENERAL TAB 
+# generate gds code Section
 
-This tab is used to add mandatory information remarks to the GDS
+This section is used to Generate GDS code for all the segments including
+General Remarks.
+
+# 
+
+# 
+
+# ![](./images/media/image3.png){width="6.7000360892388455in" height="3.3391338582677164in"}
+
+# 
+
+This step must be performed after Adding All the segments. This section
+generates PNR command for all the segments including General Remarks.
+
+# 
+
+# 
+
+# GENERAL Section 
+
+This section is used to add mandatory information remarks to the GDS
 Container PNR.
-
-This will be the landing page when the file is opened.
 
 N.B. This document uses Apollo remark examples only.
 
-## General Tab completion flow
+## General section completion flow
 
-<img src="../media/Picture1.png" style="width:7.28358in;height:3.36112in" />
+## General Section screenshot example
 
-## General Tab screenshot example
-
-<img src="../media/image3.png" style="width:7.28358in;height:3.36112in" />
+![](./images/media/image4.png){width="6.69375in"
+height="2.752083333333333in"}
 
 This step must be performed for each proposal before adding the related
 segment remark data into the PNR.
 
-## General Tab table of definitions
+## General Section table of definitions
 
-### General Tab mandatory information
+### General Section mandatory information
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 21%" />
-<col style="width: 28%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>(1) Locator</p>
-<p>This is the record locator of the container PNR that the customer will use in any communication.</p>
-<p>It can be either the GDS Container PNR locator or the locator of an additional booking.</p></td>
-<td>LOC-</td>
-<td>LOC-2NCMIA</td>
-</tr>
-<tr class="even">
-<td><p>(2) Select a GDS</p>
-<p>This is where you choose the GDS (in our example Apollo) needed to generate the Container PNR.</p></td>
-<td>Drop down choice on file</td>
-<td>@:5P/APTR…</td>
-</tr>
-<tr class="odd">
-<td><p>(3) Select a Proposal Number</p>
-<p>This is where you select the proposal number (3 is the maximum).</p>
-<p>Each proposal must be entered in turn. After each is completed (and copied and pasted) the data for the next proposal can be updated.</p></td>
-<td>PROP1</td>
-<td>@:5P/APTR/54/PROP1/…</td>
-</tr>
-<tr class="even">
-<td><p>(4) General</p>
-<p>This tab is used to fill in the general information that is needed for the GDS Container PNR.</p></td>
-<td>GEN</td>
-<td>@:5P/APTR/54/PROP1/GEN/…</td>
-</tr>
-</tbody>
-</table>
++-----------------------------------+--------------+-------------------+
+| File input                        | PNR Remark   | PNR Remark        |
+|                                   | label        | example           |
+| and description                   |              |                   |
++===================================+==============+===================+
+| \(1\) Locator                     | LOC-         | LOC-2NCMIA        |
+|                                   |              |                   |
+| This is the record locator of the |              |                   |
+| container PNR that the customer   |              |                   |
+| will use in any communication.    |              |                   |
+|                                   |              |                   |
+| It can be either the GDS          |              |                   |
+| Container PNR locator or the      |              |                   |
+| locator of an additional booking. |              |                   |
++-----------------------------------+--------------+-------------------+
+| \(2\) Select a GDS                | Drop down    | @:5P/APTR...      |
+|                                   | choice on    |                   |
+| This is where you choose the GDS  | file         |                   |
+| (in our example Apollo) needed to |              |                   |
+| generate the Container PNR.       |              |                   |
++-----------------------------------+--------------+-------------------+
+| \(3\) Select a Proposal Number    | PROP1        | @:5P/             |
+|                                   |              | APTR/54/PROP1/... |
+| This is where you select the      |              |                   |
+| proposal number (3 is the         |              |                   |
+| maximum).                         |              |                   |
+|                                   |              |                   |
+| Each proposal must be entered in  |              |                   |
+| turn. After each is completed     |              |                   |
+| (and copied and pasted) the data  |              |                   |
+| for the next proposal can be      |              |                   |
+| updated.                          |              |                   |
++-----------------------------------+--------------+-------------------+
+| \(4\) General                     | GEN          | @:5P/APTR         |
+|                                   |              | /54/PROP1/GEN/... |
+| This tab is used to fill in the   |              |                   |
+| general information that is       |              |                   |
+| needed for the GDS Container PNR. |              |                   |
++-----------------------------------+--------------+-------------------+
 
 ### 
 
-***  
+***\
 ***
 
-### General Tab optional information
+### General Section optional information
 
-<table>
-<colgroup>
-<col style="width: 54%" />
-<col style="width: 19%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th><p>PNR Remark example</p>
-<p>with default values</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Proposal Expiry Date</p>
-<p>This is the expiry date and time of the proposal.</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td><p>LIMIT-</p>
-<p>T-</p></td>
-<td><p>LIMIT-2021-06-30</p>
-<p>T102500.000</p>
-<p>(shows as LIMIT-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Agency Branch Offset to GMT/UTC</p>
-<p>This is the agency branch time zone.</p>
-<p>This works in conjunction with the Proposal Expiry so that the correct time can be applied adjusting any offset.</p>
-<p>Select if the Offset is MINUS or PLUS GMT/UTC</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>ZPLUS</td>
-<td><p>ZPLUS0000</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Remarks</p>
-<p>This is a free text field for any additional information.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-GENERAL TAB COMMENTS FREE TEXT</p>
-<p>(shows as RMKS-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Booked</p>
-<p>Select this option if you have pre-booked a proposal for policy compliance reasons. This will be shown to the traveller in the next version of Agency Proposal user interface v2.</p>
-<p>The default is unchecked</p></td>
-<td>BKD-</td>
-<td><p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-</tbody>
-</table>
++--------------------------------------+-------------+-----------------+
+| File input                           | PNR Remark  | PNR Remark      |
+|                                      | label       | example         |
+| and description                      |             |                 |
+|                                      |             | with default    |
+|                                      |             | values          |
++======================================+=============+=================+
+| Proposal Expiry Date                 | LIMIT-      | L               |
+|                                      |             | IMIT-2023-03-31 |
+| This is the expiry date and time of  | T-          |                 |
+| the proposal.                        |             | T102500.000     |
+|                                      |             |                 |
+| -   Date is in the format            |             | (shows as       |
+|     DD/MMM/YYYY                      |             | LIMIT-/ if      |
+|                                      |             | blank)          |
+| -   Time is in the format HHMM and   |             |                 |
+|     is 24 hours                      |             |                 |
++--------------------------------------+-------------+-----------------+
+| Agency Branch Offset to GMT/UTC      | ZPLUS       | ZPLUS0000       |
+|                                      |             |                 |
+| This is the agency branch time zone. |             | (not shown if   |
+|                                      |             | blank)          |
+| This works in conjunction with the   |             |                 |
+| Proposal Expiry so that the correct  |             |                 |
+| time can be applied adjusting any    |             |                 |
+| offset.                              |             |                 |
+|                                      |             |                 |
+| Select if the Offset is MINUS or     |             |                 |
+| PLUS GMT/UTC                         |             |                 |
+|                                      |             |                 |
+| -   Date is in the format            |             |                 |
+|     DD/MMM/YYYY                      |             |                 |
+|                                      |             |                 |
+| -   Time is in the format HHMM and   |             |                 |
+|     is 24 hours                      |             |                 |
++--------------------------------------+-------------+-----------------+
+| Remarks                              | RMKS-       | RMKS-GENERAL    |
+|                                      |             | TAB COMMENTS    |
+| This is a free text field for any    |             | FREE TEXT       |
+| additional information.              |             |                 |
+|                                      |             | (shows as       |
+|                                      |             | RMKS-/ if       |
+|                                      |             | blank)          |
++--------------------------------------+-------------+-----------------+
+| Booked                               | BKD-        | BKD-FALSE       |
+|                                      |             |                 |
+| Select this option if you have       |             | (default value) |
+| pre-booked a proposal for policy     |             |                 |
+| compliance reasons. This will be     |             |                 |
+| shown to the traveller in the next   |             |                 |
+| version of Agency Proposal user      |             |                 |
+| interface v2.                        |             |                 |
+|                                      |             |                 |
+| The default is unchecked             |             |                 |
++--------------------------------------+-------------+-----------------+
 
 ## AIR TAB
 
-This is where you complete the details for a single or return air
-segment.
+This is where you complete the details for a single or return or
+multi-Air segment.
 
-### Air Tab completion flow for one-way
-<img src="../media/Picture2.png" style="width:7.28358in;height:3.36112in" />
+This will be the landing page when the file is opened.
 
-### Air Tab one-way screenshot example
-
-<img src="../media/image4.png" style="width:6.69375in;height:3.33333in" />
-
-## Air Tab one-way table of definitions 
-
-### Air Tab one-way mandatory information
-
-<table>
-<colgroup>
-<col style="width: 51%" />
-<col style="width: 20%" />
-<col style="width: 28%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>AIR – One Way</p>
-<p>This is the Air segment tab to fill in the information for</p></td>
-<td>SEG-</td>
-<td>SEG-AIR1</td>
-</tr>
-<tr class="even">
-<td><p>(1) Currency</p>
-<p>This is the three-letter ISO standard code for the currency used. For example: GBP, EUR…</p></td>
-<td>CURR-</td>
-<td>CURR-GBP</td>
-</tr>
-<tr class="odd">
-<td><p>(2) Fare</p>
-<p>This is the total amount of the Air segment.</p>
-<p>It will automatically format to 2 decimal places if not typed.</p>
-<p>We currently only support decimalized currencies</p></td>
-<td>VAL-</td>
-<td>VAL-215.00</td>
-</tr>
-<tr class="even">
-<td><p>(3) Departure IATA</p>
-<p>This is the three-letter IATA airport code for the departure.</p></td>
-<td>IATA</td>
-<td>IATA-LHR</td>
-</tr>
-<tr class="odd">
-<td><p>(4) Arrival IATA</p>
-<p>This is the three-letter IATA airport code for the arrival.</p></td>
-<td>IATA</td>
-<td>IATA-CDG</td>
-</tr>
-<tr class="even">
-<td><p>(5) Flight Number</p>
-<p>This is the flight number and should be:</p>
-<p>the airline two-letter IATA code followed by the flight number</p></td>
-<td>FN-</td>
-<td>FN-BA258</td>
-</tr>
-<tr class="odd">
-<td><p>Confirmation Number</p>
-<p>This is where you will add the provider reference if you have selected “Booked”.</p>
-<p>This is only mandatory when Booked is checked</p></td>
-<td>CONF-</td>
-<td><p>CONF-ABCDEF</p>
-<p>CONF-NA</p>
-<p>(default value if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>(6) Departure Date and Time</p>
-<p>(7) Arrival Date and Time</p>
-<p>This should be entered using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td><p>DTE-2021-09-07/AT-0920</p>
-<p>DTE-2021-09-07/AT-0930</p></td>
-</tr>
-<tr class="odd">
-<td><p>(8) Airline Class</p>
-<p>This is the cabin class description in full.</p></td>
-<td>C-</td>
-<td>C-ECONOMY</td>
-</tr>
-</tbody>
-</table>
-
-### Air Tab one-way optional information
-
-<table>
-<colgroup>
-<col style="width: 52%" />
-<col style="width: 19%" />
-<col style="width: 27%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Booked</p>
-<p>Select this if the flight is booked (eg low-cost carrier).</p></td>
-<td>BKD-</td>
-<td><p>BKD-TRUE</p>
-<p>or</p>
-<p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Confirmation Number</p>
-<p>This is where you will add the provider reference if applicable.</p>
-<p>This is optional when “Booked” is not selected.</p></td>
-<td>CONF-</td>
-<td><p>CONF-ABCDEF</p>
-<p>CONF-NA</p>
-<p>(default value if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Flight Duration</p>
-<p>This is the flight duration information in minutes.</p></td>
-<td>DUR-</td>
-<td><p>DUR-150</p>
-<p>(shows as DUR-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Departure Terminal</p>
-<p>This is where you add the departure terminal information.</p></td>
-<td>TD-</td>
-<td><p>TD-NORTH</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Arrival Terminal</p>
-<p>This is where you add the arrival terminal information.</p></td>
-<td>TA-</td>
-<td><p>TA-SOUTH</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Policy Compliance Level(%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-85</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Comments</p>
-<p>This is where any additional comments related to the air segment can be added.</p>
-<p>For example, the fare conditions or any information that you want to pass to the traveller. It is free text.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-ONE WAY TEST</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Meals</p>
-<p>This is where you add the meal information, ideally using the meal code. In our example, it is a vegetarian meal.</p></td>
-<td>MEAL-</td>
-<td><p>MEAL-VGML</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Seat Number</p>
-<p>This is where you add the seat number. It is free text.</p></td>
-<td>SEAT-</td>
-<td><p>SEAT-2C</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Equipment</p>
-<p>This is where you add the equipment information if available.</p></td>
-<td>EQP-</td>
-<td><p>EQP-757</p>
-<p>(not shown if blank)</p></td>
-</tr>
-</tbody>
-</table>
-
-## Air Tab completion flow for round trip
-
-<img src="../media/Picture3.png" style="width:7.28358in;height:3.36112in" />
-
-## Air Tab round trip screenshot examples
-
-### Air Tab round trip input display 
-
-<img src="../media/image5.png" style="width:7.08209in;height:2.84268in" />
-
-### Air Tab round trip output display
-
-<img src="../media/image6.png" style="width:7.09694in;height:3.29851in" />
-
-## Air Tab round trip table of definitions
-
-### Air Tab round trip mandatory information 
-
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 16%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>AIR – Round Trip</p>
-<p>This is the tab you are working on and the segment type.</p></td>
-<td>SEG-</td>
-<td><p>SEG-AIR1</p>
-<p>SEG-AIR2</p></td>
-</tr>
-<tr class="even">
-<td><p>(1) Currency</p>
-<p>This is the three letter ISO standard code for the currency used for example: GBP, EUR, USD</p></td>
-<td>CURR-</td>
-<td>CURR-GBP</td>
-</tr>
-<tr class="odd">
-<td><p>(2) Fare</p>
-<p>This is the total amount of the Air segment.</p>
-<p>It will automatically format to 2 decimal places if not typed.</p>
-<p>We currently only support decimalized currencies</p></td>
-<td>VAL-</td>
-<td>VAL-215.00</td>
-</tr>
-<tr class="even">
-<td><p>(3) Departure IATA</p>
-<p>This is the IATA three-letter airport code for the departure.</p></td>
-<td>IATA</td>
-<td>IATA-LHR</td>
-</tr>
-<tr class="odd">
-<td><p>(4) Arrival IATA</p>
-<p>This is the IATA three-letter airport code for the arrival.</p></td>
-<td>IATA</td>
-<td>IATA-CDG</td>
-</tr>
-<tr class="even">
-<td><p>(5) Flight Number</p>
-<p>This is the flight number and should be:</p>
-<p>the airline two-letter IATA code followed by the flight number</p></td>
-<td>FN-</td>
-<td>FN-BA258</td>
-</tr>
-<tr class="odd">
-<td><p>(6) Confirmation Number</p>
-<p>This is where you will add the provider reference if you have selected “Booked”.</p>
-<p>This is only mandatory when Booked is checked</p></td>
-<td>CONF-</td>
-<td><p>CONF-ABCDEF</p>
-<p>CONF-NA</p>
-<p>(default value if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>(7) Departure Date and Time</p>
-<p>(8) Arrival Date and Time</p>
-<p>This is the departure and or arrival date and time with the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td><p>DTE-2021-06-30/AT-0920</p>
-<p>DTE-2021-06-30/AT-0920</p></td>
-</tr>
-<tr class="odd">
-<td><p>(9) Airline Class</p>
-<p>This is the cabin class description in full, not just the letter.</p></td>
-<td>C-</td>
-<td>C-ECONOMY</td>
-</tr>
-<tr class="even">
-<td><p>(10) Return Departure Date and Time</p>
-<p>(11) Return Arrival Date and Time</p>
-<p>This is the return departure date using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td><p>SEG-AIR2/DTE-2021-07-05/AT-0750</p>
-<p>SEG-AIR2/DTE-2021-07-05/AT-0830</p></td>
-</tr>
-<tr class="odd">
-<td><p>(12) Return Flight Number</p>
-<p>This is the return flight number and should be:</p>
-<p>the airline two-letter IATA code followed by the flight number</p></td>
-<td>FN-</td>
-<td>FN-AF412</td>
-</tr>
-<tr class="even">
-<td><p>(13) Return Airline Class</p>
-<p>This is the return cabin class description in full.</p></td>
-<td>C-</td>
-<td>SEG-AIR2/C-BUSINESS</td>
-</tr>
-</tbody>
-</table>
+### Air Tab completion flow
 
 ### 
 
-***  
-***
+### 
 
-### Air Tab round trip optional information 
+### 
 
-<table>
-<colgroup>
-<col style="width: 53%" />
-<col style="width: 15%" />
-<col style="width: 31%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Booked</p>
-<p>Select this if the flight you are detailing is booked (eg: low-cost carrier).</p></td>
-<td>BKD-</td>
-<td><p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Confirmation Number</p>
-<p>This is where you will add the provider reference if applicable.</p>
-<p>This is optional when “Booked” is not selected.</p></td>
-<td>CONF-</td>
-<td><p>CONF-ABCDEF</p>
-<p>CONF-NA</p>
-<p>(default value if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Flight Duration</p>
-<p>This is for the flight duration information in minutes.</p></td>
-<td>DUR-</td>
-<td><p>DUR-150</p>
-<p>(shows as DUR-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Departure Terminal</p>
-<p>This is where you add the departure terminal information.</p></td>
-<td>TD-</td>
-<td><p>TD-NORTH</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Arrival Terminal</p>
-<p>This is where you add the arrival terminal information.</p></td>
-<td>TA-</td>
-<td><p>TA-SOUTH</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Policy Compliance Level(%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-85</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Comments</p>
-<p>This is where any additional comments related to the air segment can be added as free text.</p>
-<p>For example, the fare conditions or any information that you want to pass to the traveler.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-ONE WAY TEST</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Meals</p>
-<p>This is where you add the meal information. It should be entered as the meal code. In our example, it is a vegetarian meal.</p></td>
-<td>MEAL-</td>
-<td><p>MEAL-VGML</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Seat Number</p>
-<p>This is where you add the seat number. It is free text.</p></td>
-<td>SEAT-</td>
-<td><p>SEAT-2C</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Equipment</p>
-<p>This is where you add the equipment information if required.</p></td>
-<td>EQP-</td>
-<td><p>EQP-757</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Duration</p>
-<p>This is the return flight duration in minutes.</p></td>
-<td>DUR-</td>
-<td><p>DUR-180</p>
-<p>(shows as DUR-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Seat Number</p>
-<p>This is where you enter the seat number for the inbound flight.</p></td>
-<td>SEAT-</td>
-<td><p>SEAT-3A</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Meals</p>
-<p>This is where you add the meal information for the inbound flight. It should be entered as the meal code. In our example, it is a vegetarian meal.</p></td>
-<td>MEAL-</td>
-<td><p>MEAL-VGML</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Equipment</p>
-<p>This is where you can add the equipment information for the inbound flight.</p></td>
-<td>EQP-</td>
-<td><p>EQP-744</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Departure Terminal</p>
-<p>This is where you give the departure terminal information.</p></td>
-<td>TD-</td>
-<td><p>TD-F</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Arrival Terminal</p>
-<p>This is where you give the arrival terminal information.</p></td>
-<td>TA-</td>
-<td><p>TA-NORTH</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Comments</p>
-<p>This is where any additional comments can be added.</p>
-<p>For example, the fare conditions.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-AIR COMMENT FOR THE INBOUND LEG AND COULD BE USED FOR FARE CONDITIONS TOO</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Policy Compliance Level(%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all) for the inbound flight.</p></td>
-<td>LVL-</td>
-<td><p>LVL-85</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-</tbody>
-</table>
+### Air Tab screenshot example
+
+![](./images/media/image5.png){width="6.69375in"
+height="3.097916666666667in"}
+
+N.B. The summary of each segment will be displayed as a row under the
+"Total Air Segments". The segment counter will be incremented once each
+segment is added
+
+## Air Tab table of definitions 
+
+### Air Tab mandatory information
+
++-----------------------------------+-------------+-------------------+
+| File input                        | PNR Remark  | PNR Remark        |
+|                                   | label       | example           |
+| and description                   |             |                   |
++===================================+=============+===================+
+| AIR -- One Way                    | SEG-        | SEG-AIR1          |
+|                                   |             |                   |
+| This is the Air segment tab to    |             |                   |
+| fill in the information for       |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(1\) Total Air Fare For All      | VAL-        | VAL-215.00        |
+| Segments                          |             |                   |
+|                                   |             |                   |
+| This is the total amount for all  |             |                   |
+| the Air segments added in the Air |             |                   |
+| Tab.                              |             |                   |
+|                                   |             |                   |
+| It will automatically format to 2 |             |                   |
+| decimal places if not typed.      |             |                   |
+|                                   |             |                   |
+| We currently only support         |             |                   |
+| decimalized currencies            |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(2\) Departure IATA              | SIATA       | SIATA-LHR         |
+|                                   |             |                   |
+| This is the three-letter IATA     |             |                   |
+| airport code for the departure.   |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(3\) Arrival IATA                | EIATA       | EIATA-CDG         |
+|                                   |             |                   |
+| This is the three-letter IATA     |             |                   |
+| airport code for the arrival.     |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(4\) Flight Number               | FN-         | FN-BA258          |
+|                                   |             |                   |
+| This is the flight number and     |             |                   |
+| should be:                        |             |                   |
+|                                   |             |                   |
+| the airline two-letter IATA code  |             |                   |
+| followed by the flight number     |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(5\) Confirmation Number         | CONF-       | CONF-ABCDEF       |
+|                                   |             |                   |
+| This is where you will add the    |             | CONF-NA           |
+| provider reference if you have    |             |                   |
+| selected "Booked".                |             | (default value if |
+|                                   |             | blank)            |
+| This is only mandatory when       |             |                   |
+| Booked is checked                 |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(6\) Departure Date and Time     | S           | SDTE-2            |
+|                                   | DTE-.../AT- | 021-09-07/AT-0920 |
+| \(7\) Arrival Date and Time       |             |                   |
+|                                   | E           | EDTE-2            |
+| This should be entered using the  | DTE-.../AT- | 021-09-07/AT-1130 |
+| following format:                 |             |                   |
+|                                   |             |                   |
+| -   Date is in the format         |             |                   |
+|     DD/MMM/YYYY                   |             |                   |
+|                                   |             |                   |
+| -   Time is in the format HHMM    |             |                   |
+|     and is 24 hours               |             |                   |
++-----------------------------------+-------------+-------------------+
+| \(8\) Airline Class               | C-          | C-ECONOMY         |
+|                                   |             |                   |
+| This is the cabin class           |             |                   |
+| description in full.              |             |                   |
++-----------------------------------+-------------+-------------------+
+
+### Air Tab optional information
+
++-------------------------------------+------------+-------------------+
+| File input                          | PNR Remark | PNR Remark        |
+|                                     | label      | example           |
+| and description                     |            |                   |
++=====================================+============+===================+
+| Booked                              | BKD-       | BKD-TRUE          |
+|                                     |            |                   |
+| Select this if the flight is booked |            | or                |
+| (eg low-cost carrier).              |            |                   |
+|                                     |            | BKD-FALSE         |
+|                                     |            |                   |
+|                                     |            | (default value)   |
++-------------------------------------+------------+-------------------+
+| Confirmation Number                 | CONF-      | CONF-ABCDEF       |
+|                                     |            |                   |
+| This is where you will add the      |            | CONF-NA           |
+| provider reference if applicable.   |            |                   |
+|                                     |            | (default value if |
+| This is optional when "Booked" is   |            | blank)            |
+| not selected.                       |            |                   |
++-------------------------------------+------------+-------------------+
+| Flight Duration                     | DUR-       | DUR-150           |
+|                                     |            |                   |
+| This is the flight duration         |            | (shows as DUR-/   |
+| information in minutes.             |            | if blank)         |
++-------------------------------------+------------+-------------------+
+| Departure Terminal                  | TD-        | TD-NORTH          |
+|                                     |            |                   |
+| This is where you add the departure |            | (not shown if     |
+| terminal information.               |            | blank)            |
++-------------------------------------+------------+-------------------+
+| Arrival Terminal                    | TA-        | TA-SOUTH          |
+|                                     |            |                   |
+| This is where you add the arrival   |            | (not shown if     |
+| terminal information.               |            | blank)            |
++-------------------------------------+------------+-------------------+
+| Segment Policy Complaint            | CMPL-      | CMPL-TRUE         |
+|                                     |            |                   |
+| This will be a Boolean value True   |            | (not shown if not |
+| or False                            |            | selected)         |
++-------------------------------------+------------+-------------------+
+| Comments                            | RMKS-      | RMKS-AIR COMMENTS |
+|                                     |            | TEST              |
+| This is where any additional        |            |                   |
+| comments related to the air segment |            | (not shown if     |
+| can be added.                       |            | blank)            |
+|                                     |            |                   |
+| For example, the fare conditions or |            |                   |
+| any information that you want to    |            |                   |
+| pass to the traveller. It is free   |            |                   |
+| text.                               |            |                   |
++-------------------------------------+------------+-------------------+
+| Seat Number                         | SEAT-      | SEAT-2C           |
+|                                     |            |                   |
+| This is where you add the seat      |            | (not shown if     |
+| number. It is free text.            |            | blank)            |
++-------------------------------------+------------+-------------------+
+| Equipment                           | EQP-       | EQP-757           |
+|                                     |            |                   |
+| This is where you add the equipment |            | (not shown if     |
+| information if available.           |            | blank)            |
++-------------------------------------+------------+-------------------+
 
 ## CAR TAB
 
@@ -685,249 +509,208 @@ segment should be added.
 
 ## Car Tab completion flow
 
-<img src="../media/Picture4.png" style="width:7.28358in;height:3.36112in" />
-
 ## Car Tab screenshot example
 
-<img src="../media/image7.png" style="width:6.69375in;height:2.95237in" />
+![](./images/media/image6.png){width="6.69375in"
+height="2.8305555555555557in"}
+
+N.B. The summary of each segment will be displayed as a row under the
+"Total Car Segments". The segment counter will be incremented once each
+segment is added
 
 ## Car Tab table of definitions 
 
-### Car Tab mandatory information
+## Car Tab mandatory information
 
-<table>
-<colgroup>
-<col style="width: 49%" />
-<col style="width: 20%" />
-<col style="width: 30%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>CAR</p>
-<p>This is the tab and the segment type.</p></td>
-<td>SEG-</td>
-<td>SEG-CAR</td>
-</tr>
-<tr class="even">
-<td><p>(1) Pickup Country Code</p>
-<p>This is the pickup two-letter IATA country code.</p></td>
-<td>CO-</td>
-<td>CO-FR</td>
-</tr>
-<tr class="odd">
-<td><p>(2) Pickup City</p>
-<p>This is the pickup city name in full.</p></td>
-<td>CITY-</td>
-<td>CITY-PARIS</td>
-</tr>
-<tr class="even">
-<td><p>(3) Pickup Details</p>
-<p>This is where you enter the details about the pickup.</p></td>
-<td>NOTE-</td>
-<td>NOTE-RAIL STATION</td>
-</tr>
-<tr class="odd">
-<td><p>(4) Confirmation Number</p>
-<p>This is where you will add the provider reference if you have selected “Booked”.</p>
-<p>This is only mandatory when “Booked” is checked</p></td>
-<td>CONF-</td>
-<td><p>CONF-ABCDEF</p>
-<p>CONF-NA</p>
-<p>(default value if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>(5) Drop Off Country Code</p>
-<p>This is the drop off two-letter IATA country code.</p></td>
-<td>CO-</td>
-<td>CO-FR</td>
-</tr>
-<tr class="odd">
-<td><p>(6) Drop Off City</p>
-<p>This is the drop off city name in full.</p></td>
-<td>CITY-</td>
-<td>CITY-LYON</td>
-</tr>
-<tr class="even">
-<td><p>(7) Supplier Name</p>
-<p>This is the supplier name in full.</p></td>
-<td>SUP-</td>
-<td>SUP-AVIS</td>
-</tr>
-<tr class="odd">
-<td><p>(8) Pickup Date and Time</p>
-<p>This is the pickup date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-…</td>
-<td>DTE-2021-06-19/AT-1000</td>
-</tr>
-<tr class="even">
-<td><p>(9) Drop Off Date and Time</p>
-<p>This is the drop off date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-…</td>
-<td>DTE-2021-06-22/AT-0730</td>
-</tr>
-<tr class="odd">
-<td><p>(10) Currency</p>
-<p>This is the three-letter ISO standard code for the currency used. For example: GBP, EUR, USD…</p></td>
-<td>CURR-</td>
-<td>CURR-EUR</td>
-</tr>
-<tr class="even">
-<td><p>(11) Rate</p>
-<p>This is the total amount of the Car segment.</p>
-<p>It will automatically format to 2 decimal places if not typed.</p>
-<p>We currently only support decimalized currencies.</p></td>
-<td>VAL-</td>
-<td>VAL-150.00</td>
-</tr>
-</tbody>
-</table>
++----------------------------------+-------------+--------------------+
+| File input                       | PNR Remark  | PNR Remark         |
+|                                  | label       | examples           |
+| and description                  |             |                    |
++==================================+=============+====================+
+| CAR                              | SEG-        | SEG-CAR            |
+|                                  |             |                    |
+| This is the tab and the segment  |             |                    |
+| type.                            |             |                    |
++----------------------------------+-------------+--------------------+
+| \(1\) Pickup Country Code        | SCO-        | SCO-FR             |
+|                                  |             |                    |
+| This is the pickup two-letter    |             |                    |
+| IATA country code.               |             |                    |
++----------------------------------+-------------+--------------------+
+| \(2\) Pickup City                | SCITY-      | SCITY-PARIS        |
+|                                  |             |                    |
+| This is the pickup city name in  |             |                    |
+| full.                            |             |                    |
++----------------------------------+-------------+--------------------+
+| \(3\) Pickup Location Code       | SCODE-      | SCODE-FRPLD        |
+|                                  |             |                    |
+| This is the UN Location Code     |             |                    |
++----------------------------------+-------------+--------------------+
+| \(4\) Pickup Details             | SNOTE-      | SNOTE-RAIL STATION |
+|                                  |             |                    |
+| This is where you enter the      |             |                    |
+| details about the pickup.        |             |                    |
++----------------------------------+-------------+--------------------+
+| \(5\) Confirmation Number        | CONF-       | CONF-ABCDEF        |
+|                                  |             |                    |
+| This is where you will add the   |             | CONF-NA            |
+| provider reference if you have   |             |                    |
+| selected "Booked".               |             | (default value if  |
+|                                  |             | blank)             |
+| This is only mandatory when      |             |                    |
+| "Booked" is checked              |             |                    |
++----------------------------------+-------------+--------------------+
+| \(6\) Pickup IATA                | SIATA-      | SIATA-PAR          |
+|                                  |             |                    |
+| This is the three-letter city    |             | (not shown if      |
+| code of the pickup city.         |             | blank)             |
++----------------------------------+-------------+--------------------+
+| \(7\) Drop Off Country Code      | ECO-        | ECO-FR             |
+|                                  |             |                    |
+| This is the drop off two-letter  |             |                    |
+| IATA country code.               |             |                    |
++----------------------------------+-------------+--------------------+
+| \(8\) Drop Off City              | ECITY-      | ECITY-LYON         |
+|                                  |             |                    |
+| This is the drop off city name   |             |                    |
+| in full.                         |             |                    |
++----------------------------------+-------------+--------------------+
+| \(9\) Drop Off Location Code     | ECODE-      | ECODE-FRLYS        |
+|                                  |             |                    |
+| This is the UN Location Code     |             |                    |
++----------------------------------+-------------+--------------------+
+| \(10\) Drop Off Details          | ENOTE-      | ENOTE-AT HILTON    |
+|                                  |             | RECEPTION          |
+| This is where you can add any    |             |                    |
+| information regarding the drop   |             |                    |
+| off.                             |             |                    |
++----------------------------------+-------------+--------------------+
+| \(11\) Supplier Name             | SUP-        | SUP-AVIS           |
+|                                  |             |                    |
+| This is the supplier name in     |             |                    |
+| full.                            |             |                    |
++----------------------------------+-------------+--------------------+
+| \(12\) Drop Off IATA             | EIATA-      | EIATA-LYS          |
+|                                  |             |                    |
+| This is the three-letter city    |             | (not shown if      |
+| code of the drop off city.       |             | blank)             |
++----------------------------------+-------------+--------------------+
+| \(13\) Pickup Date and Time      | SDTE        | SDTE-              |
+|                                  | -.../AT-... | 2023-11-17/AT-1200 |
+| This is the pickup date and time |             |                    |
+| using the following format:      |             |                    |
+|                                  |             |                    |
+| -   Date is in the format        |             |                    |
+|     DD/MMM/YYYY                  |             |                    |
+|                                  |             |                    |
+| -   Time is in the format HHMM   |             |                    |
+|     and is 24 hours              |             |                    |
++----------------------------------+-------------+--------------------+
+| \(14\) Drop Off Date and Time    | EDTE        | EDTE-              |
+|                                  | -.../AT-... | 2023-11-17/AT-1430 |
+| This is the drop off date and    |             |                    |
+| time using the following format: |             |                    |
+|                                  |             |                    |
+| -   Date is in the format        |             |                    |
+|     DD/MMM/YYYY                  |             |                    |
+|                                  |             |                    |
+| -   Time is in the format HHMM   |             |                    |
+|     and is 24 hours              |             |                    |
++----------------------------------+-------------+--------------------+
+| \(15\) Rate                      | VAL-        | VAL-150.00         |
+|                                  |             |                    |
+| This is the total amount of the  |             |                    |
+| Car segment.                     |             |                    |
+|                                  |             |                    |
+| It will automatically format to  |             |                    |
+| 2 decimal places if not typed.   |             |                    |
+|                                  |             |                    |
+| We currently only support        |             |                    |
+| decimalized currencies.          |             |                    |
++----------------------------------+-------------+--------------------+
 
 ### Car Tab optional information
 
-<table>
-<colgroup>
-<col style="width: 46%" />
-<col style="width: 19%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th><p>PNR Remark examples</p>
-<p>with default values</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Booked</p>
-<p>If you have booked the car and selected this field, the “Confirmation Number” will become mandatory.</p></td>
-<td>BKD-</td>
-<td><p>BKD-TRUE</p>
-<p>or</p>
-<p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Confirmation Number</p>
-<p>This is where you enter the booking reference obtained from the provider if applicable.</p>
-<p>This is optional when “Booked” is not selected.</p></td>
-<td>CONF-</td>
-<td><p>CONF-14545</p>
-<p>or</p>
-<p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Pickup IATA</p>
-<p>This is the three-letter city code of the pickup city.</p></td>
-<td>IATA-</td>
-<td><p>IATA-PAR</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Drop Off Details</p>
-<p>This is where you can add any information regarding the drop off.</p></td>
-<td>NOTE-</td>
-<td><p>NOTE-AT HILTON RECEPTION</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Drop Off IATA</p>
-<p>This is the three-letter city code of the drop off city.</p></td>
-<td>IATA-</td>
-<td><p>IATA-LYS</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Class</p>
-<p>This is where you add the car category in full.</p></td>
-<td>C-</td>
-<td><p>C-COMPACT</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Policy Compliance Level (%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-100</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Comments</p>
-<p>This is where you can add any free text additional information regarding the car segment.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-CAR COMMENT EXAMPLE</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Transmission Preference</p>
-<p>This is where you choose the car transmission in the drop-down menu.</p></td>
-<td>TRAN-</td>
-<td><p>TRAN-A</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Pickup Phone</p>
-<p>Here you can enter the pickup office phone number.</p></td>
-<td>PUPH-</td>
-<td><p>PUPH-1233333333</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Drop Off Phone</p>
-<p>Here you can enter the drop off office phone number.</p></td>
-<td>DOPH-</td>
-<td><p>DOPH-415747777</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Additional Equipment</p>
-<p>This is where you can add any car feature/equipment required. It is free text.</p></td>
-<td>EQP-</td>
-<td><p>EQP-SAT NAV</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Air Conditioning</p>
-<p>Select from the drop-down as preferred.</p></td>
-<td>AC-</td>
-<td><p>AC-TRUE</p>
-<p>(default is FALSE)</p></td>
-</tr>
-<tr class="even">
-<td><p>Airport Pickup</p>
-<p>This is a drop-down menu where you select if the pickup will be at the airport or not.</p></td>
-<td>PU-</td>
-<td><p>PU-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Airport Drop Off</p>
-<p>This is a drop-down menu where you select if the drop off will be at the airport or not.</p></td>
-<td>DO-</td>
-<td><p>DO-TRUE</p>
-<p>(default is FALSE)</p></td>
-</tr>
-</tbody>
-</table>
++--------------------------------+-------------+-----------------------+
+| File input                     | PNR Remark  | PNR Remark examples   |
+|                                | label       |                       |
+| and description                |             | with default values   |
++================================+=============+=======================+
+| Booked                         | BKD-        | BKD-TRUE              |
+|                                |             |                       |
+| If you have booked the car and |             | or                    |
+| selected this field, the       |             |                       |
+| "Confirmation Number" will     |             | BKD-FALSE             |
+| become mandatory.              |             |                       |
+|                                |             | (default value)       |
++--------------------------------+-------------+-----------------------+
+| Confirmation Number            | CONF-       | CONF-14545            |
+|                                |             |                       |
+| This is where you enter the    |             | or                    |
+| booking reference obtained     |             |                       |
+| from the provider if           |             | CONF-NA               |
+| applicable.                    |             |                       |
+|                                |             | (default value)       |
+| This is optional when "Booked" |             |                       |
+| is not selected.               |             |                       |
++--------------------------------+-------------+-----------------------+
+| Class                          | C-          | C-COMPACT             |
+|                                |             |                       |
+| This is where you add the car  |             | (not shown if blank)  |
+| category in full.              |             |                       |
++--------------------------------+-------------+-----------------------+
+| Segment Policy Compliant (True | CMPL-       | CMPL-True             |
+| or False)                      |             |                       |
+|                                |             | (not shown if blank)  |
+| This will be a Boolean value   |             |                       |
+| True or False                  |             |                       |
++--------------------------------+-------------+-----------------------+
+| Comments                       | RMKS-       | RMKS-CAR COMMENT      |
+|                                |             | EXAMPLE               |
+| This is where you can add any  |             |                       |
+| free text additional           |             | (not shown if blank)  |
+| information regarding the car  |             |                       |
+| segment.                       |             |                       |
++--------------------------------+-------------+-----------------------+
+| Transmission Preference        | TRAN-       | TRAN-A                |
+|                                |             |                       |
+| This is where you choose the   |             | (default value)       |
+| car transmission in the        |             |                       |
+| drop-down menu.                |             |                       |
++--------------------------------+-------------+-----------------------+
+| Pickup Phone                   | PUPH-       | PUPH-1233333333       |
+|                                |             |                       |
+| Here you can enter the pickup  |             | (not shown if blank)  |
+| office phone number.           |             |                       |
++--------------------------------+-------------+-----------------------+
+| Drop Off Phone                 | DOPH-       | DOPH-415747777        |
+|                                |             |                       |
+| Here you can enter the drop    |             | (not shown if blank)  |
+| off office phone number.       |             |                       |
++--------------------------------+-------------+-----------------------+
+| Additional Equipment           | EQP-        | EQP-SAT NAV           |
+|                                |             |                       |
+| This is where you can add any  |             | (not shown if blank)  |
+| car feature/equipment          |             |                       |
+| required. It is free text.     |             |                       |
++--------------------------------+-------------+-----------------------+
+| Air Conditioning               | AC-         | AC-TRUE               |
+|                                |             |                       |
+| Select from the drop-down as   |             | (default is FALSE)    |
+| preferred.                     |             |                       |
++--------------------------------+-------------+-----------------------+
+| Airport Pickup                 | PU-         | PU-FALSE              |
+|                                |             |                       |
+| This is a drop-down menu where |             | (default value)       |
+| you select if the pickup will  |             |                       |
+| be at the airport or not.      |             |                       |
++--------------------------------+-------------+-----------------------+
+| Airport Drop Off               | DO-         | DO-TRUE               |
+|                                |             |                       |
+| This is a drop-down menu where |             | (default is FALSE)    |
+| you select if the drop off     |             |                       |
+| will be at the airport or not. |             |                       |
++--------------------------------+-------------+-----------------------+
 
 # HOTEL TAB
 
@@ -936,201 +719,163 @@ are added.
 
 ## Hotel Tab completion flow
 
-<img src="../media/Picture5.png" style="width:7.28358in;height:3.36112in" />
+## Hotel Tab ![](./images/media/image7.png){width="6.69375in" height="2.939583333333333in"}
 
-## Hotel Tab screenshot example
-
-<img src="../media/image8.png" style="width:6.67164in;height:2.64976in" />
+N.B. The summary of each segment will be displayed as a row under the
+"Total Hotel Segments". The segment counter will be incremented once
+each segment is added
 
 ##  Hotel Tab table of definitions 
 
 ### Hotel Tab mandatory information
 
-<table>
-<colgroup>
-<col style="width: 49%" />
-<col style="width: 23%" />
-<col style="width: 26%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>HOTEL</p>
-<p>This is the tab name and the segment type.</p></td>
-<td>SEG-</td>
-<td>SEG-HOT</td>
-</tr>
-<tr class="even">
-<td><p>(1) Country Code</p>
-<p>This is the destination two-letter country code.</p></td>
-<td>CO-</td>
-<td>CO-GB</td>
-</tr>
-<tr class="odd">
-<td><p>(2) Destination City</p>
-<p>This is the destination city name in full</p></td>
-<td>CITY-</td>
-<td>CITY-LONDON</td>
-</tr>
-<tr class="even">
-<td><p>(3) Hotel Name</p>
-<p>This is where you enter the hotel name.</p></td>
-<td>HTLNAME-</td>
-<td>HTLNAME-LEA PALACE</td>
-</tr>
-<tr class="odd">
-<td><p>(4) Check-In Date and Time</p>
-<p>This is the check-in date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-06-28/AT-1520</td>
-</tr>
-<tr class="even">
-<td><p>(5) Check-Out Date and Time</p>
-<p>This is the check-out date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-06-30/AT-1200</td>
-</tr>
-<tr class="odd">
-<td><p>(6) Confirmation Number</p>
-<p>This is where you will add the provider reference if you have selected “Booked”.</p>
-<p>This is only mandatory when Booked is checked.</p></td>
-<td>CONF-</td>
-<td><p>CONF-ABCDEF</p>
-<p>CONF-NA</p>
-<p>(default value if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>(7) Supplier Name</p>
-<p>This is where you enter the supplier name in full.</p></td>
-<td>SUP-</td>
-<td>SUP-SHERATON</td>
-</tr>
-<tr class="odd">
-<td><p>(8) Currency</p>
-<p>This is the three-letter ISO standard code for the currency used (eg GBP, EUR).</p></td>
-<td>CURR-</td>
-<td>CURR-GBP</td>
-</tr>
-<tr class="even">
-<td><p>(9) Rate</p>
-<p>This is the total amount of the Hotel segment.</p>
-<p>It will automatically format to 2 decimal places if not typed.</p>
-<p>We currently only support decimalized currencies.</p></td>
-<td>VAL-</td>
-<td>VAL-125.20</td>
-</tr>
-</tbody>
-</table>
++----------------------------------+----------------+------------------+
+| File input                       | PNR Remark     | PNR Remark       |
+|                                  | label          | examples         |
+| and description                  |                |                  |
++==================================+================+==================+
+| HOTEL                            | SEG-           | SEG-HOT          |
+|                                  |                |                  |
+| This is the tab name and the     |                |                  |
+| segment type.                    |                |                  |
++----------------------------------+----------------+------------------+
+| \(1\) Country Code               | SCO-           | SCO-GB           |
+|                                  |                |                  |
+| This is the destination          |                |                  |
+| two-letter country code.         |                |                  |
++----------------------------------+----------------+------------------+
+| \(2\) Destination City           | SCITY-         | SCITY-LONDON     |
+|                                  |                |                  |
+| This is the destination city     |                |                  |
+| name in full                     |                |                  |
++----------------------------------+----------------+------------------+
+| \(3\) Destination Location Code  | SCODE-         | SCODE-GBLHR      |
+|                                  |                |                  |
+| This is the UN Location Code for |                |                  |
+| Destination                      |                |                  |
++----------------------------------+----------------+------------------+
+| \(4\) Destination IATA           | SIATA-         | SIATA-LHR        |
+|                                  |                |                  |
+| This is the IATA three-letter    |                |                  |
+| code of the destination city.    |                |                  |
++----------------------------------+----------------+------------------+
+| \(5\) Hotel Name                 | HTLNAME-       | HTLNAME-LEA      |
+|                                  |                | PALACE           |
+| This is where you enter the      |                |                  |
+| hotel name.                      |                |                  |
++----------------------------------+----------------+------------------+
+| \(6\) Check-In Date and Time     | SDTE-.../AT-   | SDTE-20          |
+|                                  |                | 23-11-17/AT-1520 |
+| This is the check-in date and    |                |                  |
+| time using the following format: |                |                  |
+|                                  |                |                  |
+| -   Date is in the format        |                |                  |
+|     DD/MMM/YYYY                  |                |                  |
+|                                  |                |                  |
+| -   Time is in the format HHMM   |                |                  |
+|     and is 24 hours              |                |                  |
++----------------------------------+----------------+------------------+
+| \(7\) Check-Out Date and Time    | EDTE-.../AT-   | EDTE-20          |
+|                                  |                | 23-11-20/AT-1200 |
+| This is the check-out date and   |                |                  |
+| time using the following format: |                |                  |
+|                                  |                |                  |
+| -   Date is in the format        |                |                  |
+|     DD/MMM/YYYY                  |                |                  |
+|                                  |                |                  |
+| -   Time is in the format HHMM   |                |                  |
+|     and is 24 hours              |                |                  |
++----------------------------------+----------------+------------------+
+| \(8\) Confirmation Number        | CONF-          | CONF-ABCDEF      |
+|                                  |                |                  |
+| This is where you will add the   |                | CONF-NA          |
+| provider reference if you have   |                |                  |
+| selected "Booked".               |                | (default value   |
+|                                  |                | if blank)        |
+| This is only mandatory when      |                |                  |
+| Booked is checked.               |                |                  |
++----------------------------------+----------------+------------------+
+| \(9\) Supplier Name              | SUP-           | SUP-SHERATON     |
+|                                  |                |                  |
+| This is where you enter the      |                |                  |
+| supplier name in full.           |                |                  |
++----------------------------------+----------------+------------------+
+| \(10\) Rate                      | VAL-           | VAL-125.20       |
+|                                  |                |                  |
+| This is the total amount of the  |                |                  |
+| Hotel segment.                   |                |                  |
+|                                  |                |                  |
+| It will automatically format to  |                |                  |
+| 2 decimal places if not typed.   |                |                  |
+|                                  |                |                  |
+| We currently only support        |                |                  |
+| decimalized currencies.          |                |                  |
++----------------------------------+----------------+------------------+
 
-## Hotel Tab optional information
+[]{#_Toc94552504 .anchor}Hotel Tab optional information
 
-<table>
-<colgroup>
-<col style="width: 45%" />
-<col style="width: 16%" />
-<col style="width: 38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th><p>PNR Remark examples</p>
-<p>with default value information</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Destination IATA</p>
-<p>This is the IATA three-letter code of the destination city.</p></td>
-<td>IATA-</td>
-<td><p>IATA-LYS</p>
-<p>(shows as IATA-/ if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Booked</p>
-<p>If you check “Booked”, the “Confirmation Number” field will become mandatory.</p></td>
-<td>BKD-</td>
-<td><p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Confirmation Number</p>
-<p>This is where you add the provider confirmation number if the hotel has been booked directly with the provider.</p>
-<p>This is optional when “Booked” is not selected.</p></td>
-<td>CONF-</td>
-<td><p>CONF-A123456</p>
-<p>or</p>
-<p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Location Details</p>
-<p>This is a free text field where you can add information about the hotel location.</p></td>
-<td>NOTE-</td>
-<td><p>NOTE-DOWNTOWN</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Hotel Address</p>
-<p>This is where you add the hotel address information.</p></td>
-<td>ADD-</td>
-<td><p>ADD-ASTON ROAD, LONDON</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Hotel Zip Code</p>
-<p>This is the zip code of the hotel location</p></td>
-<td>ZIP-</td>
-<td><p>ZIP-LW45 6ER</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Phone Number</p>
-<p>This is where you add the hotel phone number</p></td>
-<td>PH-</td>
-<td><p>PH-0044 1256321</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Policy Compliance Level (%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-100</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Room Type</p>
-<p>This is where you can enter the room type in full.</p>
-<p>It is free text.</p></td>
-<td>ROOM-</td>
-<td><p>ROOM-DOUBLE</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Comments</p>
-<p>This is where you can add any additional comments such as cancellation policy.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-24HR CXX POLICY</p>
-<p>(not shown if blank)</p></td>
-</tr>
-</tbody>
-</table>
++-------------------------------+----------+--------------------------+
+| File input                    | PNR      | PNR Remark examples      |
+|                               | Remark   |                          |
+| and description               | label    | with default value       |
+|                               |          | information              |
++===============================+==========+==========================+
+| Booked                        | BKD-     | BKD-FALSE                |
+|                               |          |                          |
+| If you check "Booked", the    |          | (default value)          |
+| "Confirmation Number" field   |          |                          |
+| will become mandatory.        |          |                          |
++-------------------------------+----------+--------------------------+
+| Confirmation Number           | CONF-    | CONF-A123456             |
+|                               |          |                          |
+| This is where you add the     |          | or                       |
+| provider confirmation number  |          |                          |
+| if the hotel has been booked  |          | CONF-NA                  |
+| directly with the provider.   |          |                          |
+|                               |          | (default value)          |
+| This is optional when         |          |                          |
+| "Booked" is not selected.     |          |                          |
++-------------------------------+----------+--------------------------+
+| Location Details              | NOTE-    | NOTE-DOWNTOWN            |
+|                               |          |                          |
+| This is a free text field     |          | (not shown if blank)     |
+| where you can add information |          |                          |
+| about the hotel location.     |          |                          |
++-------------------------------+----------+--------------------------+
+| Hotel Address                 | ADD-     | ADD-ASTON ROAD, LONDON   |
+|                               |          |                          |
+| This is where you add the     |          | (not shown if blank)     |
+| hotel address information.    |          |                          |
++-------------------------------+----------+--------------------------+
+| Hotel Zip Code                | ZIP-     | ZIP-LW45 6ER             |
+|                               |          |                          |
+| This is the zip code of the   |          | (not shown if blank)     |
+| hotel location                |          |                          |
++-------------------------------+----------+--------------------------+
+| Phone Number                  | PH-      | PH-0044 1256321          |
+|                               |          |                          |
+| This is where you add the     |          | (not shown if blank)     |
+| hotel phone number            |          |                          |
++-------------------------------+----------+--------------------------+
+| Segment Policy Compliant      | CMPL-    | CMPL-True                |
+| (True or False)               |          |                          |
+|                               |          | (not shown if blank)     |
+| This will be a Boolean value  |          |                          |
+| True or False                 |          |                          |
++-------------------------------+----------+--------------------------+
+| Room Type                     | ROOM-    | ROOM-DOUBLE              |
+|                               |          |                          |
+| This is where you can enter   |          | (not shown if blank)     |
+| the room type in full.        |          |                          |
+|                               |          |                          |
+| It is free text.              |          |                          |
++-------------------------------+----------+--------------------------+
+| Comments                      | RMKS-    | RMKS-24HR CXX POLICY     |
+|                               |          |                          |
+| This is where you can add any |          | (not shown if blank)     |
+| additional comments such as   |          |                          |
+| cancellation policy.          |          |                          |
++-------------------------------+----------+--------------------------+
 
 ## RAIL TAB
 
@@ -1138,516 +883,195 @@ This is where all the details regarding the rail segment are added.
 
 ## Rail Tab completion flow for one-way rail
 
-<img src="../media/Picture6.png" style="width:7.28358in;height:3.36112in" />
-
 ## Rail Tab one-way screenshot example
 
-<img src="../media/image9.png" style="width:6.69375in;height:2.76157in" />
+![](./images/media/image8.png){width="6.69375in"
+height="2.8493055555555555in"}
+
+N.B. The summary of each segment will be displayed as a row under the
+"Total Rail Segments". The segment counter will be incremented once each
+segment is added
 
 ## Rail Tab one-way table of definitions
 
 ### Rail Tab one-way mandatory information
 
-<table>
-<colgroup>
-<col style="width: 55%" />
-<col style="width: 15%" />
-<col style="width: 29%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>RAIL – One Way</p>
-<p>This is the tab name and the segment type.</p></td>
-<td>SEG-</td>
-<td>SEG-RAIL1</td>
-</tr>
-<tr class="even">
-<td><p>Booked</p>
-<p>Check the field “Booked” if you have confirmed the booking with the provider. The “Confirmation Number” field will then become mandatory.</p></td>
-<td>BKD-</td>
-<td><p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>(1) Currency</p>
-<p>This is the three-letter ISO standard code for the currency used (eg GBP, EUR).</p></td>
-<td>CURR-</td>
-<td>CURR-EUR</td>
-</tr>
-<tr class="even">
-<td><p>(2) Fare</p>
-<p>This is the total amount of the rail segment.</p>
-<p>It will automatically format to 2 decimal places if not typed.</p>
-<p>We currently only support decimalized currencies.</p></td>
-<td>VAL-</td>
-<td>VAL-250.00</td>
-</tr>
-<tr class="odd">
-<td><p>(3) Booking Source</p>
-<p>This is the rail provider booking source. It is a drop-down menu of the supported providers.</p></td>
-<td>TYPE-</td>
-<td>TYPE-2C</td>
-</tr>
-<tr class="even">
-<td><p>(4) Departure Country Code</p>
-<p>This is the two-letter IATA departure country code.</p></td>
-<td>CO-</td>
-<td>CO-FR</td>
-</tr>
-<tr class="odd">
-<td><p>(5) Departure Station Name</p>
-<p>This is the departure station name from the drop down provided and includes the departure rail station code. Items in the list are supplier specific.</p></td>
-<td><p>CODE-</p>
-<p>NAME-</p></td>
-<td><p>CODE-FRDHP</p>
-<p>NAME-PARIS MONTPARNASSE 2 PASTEUR</p></td>
-</tr>
-<tr class="even">
-<td><p>(6) Confirmation Number</p>
-<p>This is where you will add the provider reference if you have selected “Booked”. This is only mandatory when Booked is checked.</p></td>
-<td>CONF-</td>
-<td><p>CONF-A123456</p>
-<p>or</p>
-<p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>(7) Arrival Country Code</p>
-<p>This is the two-letter IATA arrival country code.</p>
-<p>It is a drop-down menu.</p></td>
-<td>CO-</td>
-<td>CO-GB</td>
-</tr>
-<tr class="even">
-<td><p>(8) Arrival Station Name</p>
-<p>This is the arrival station name from the drop down provided and includes the rail station code. Items in the list are supplier specific.</p></td>
-<td><p>CODE-</p>
-<p>NAME-</p></td>
-<td><p>CODE-GBBLL</p>
-<p>NAME-BLACKFRIARS LONDON</p></td>
-</tr>
-<tr class="odd">
-<td><p>(9) Carrier Name</p>
-<p>This is the carrier name in full.</p></td>
-<td>SUP-</td>
-<td>SUP-EUROSTAR</td>
-</tr>
-<tr class="even">
-<td><p>(10) Departure Date and Time</p>
-<p>This is the departure date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-06-29/AT-0850</td>
-</tr>
-<tr class="odd">
-<td><p>(11) Arrival Date and Time</p>
-<p>This is the arrival date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-07-29/AT-1100</td>
-</tr>
-</tbody>
-</table>
++--------------------------------------+----------+--------------------+
+| File input                           | PNR      | PNR Remark         |
+|                                      | Remark   | examples           |
+| and description                      | label    |                    |
++======================================+==========+====================+
+| RAIL -- One Way                      | SEG-     | SEG-RAIL1          |
+|                                      |          |                    |
+| This is the tab name and the segment |          |                    |
+| type.                                |          |                    |
++--------------------------------------+----------+--------------------+
+| \(1\) Booked                         | BKD-     | BKD-FALSE          |
+|                                      |          |                    |
+| Check the field "Booked" if you have |          | (default value)    |
+| confirmed the booking with the       |          |                    |
+| provider. The "Confirmation Number"  |          |                    |
+| field will then become mandatory.    |          |                    |
++--------------------------------------+----------+--------------------+
+| \(2\) Fare                           | VAL-     | VAL-250.00         |
+|                                      |          |                    |
+| This is the total amount of the rail |          |                    |
+| segment.                             |          |                    |
+|                                      |          |                    |
+| It will automatically format to 2    |          |                    |
+| decimal places if not typed.         |          |                    |
+|                                      |          |                    |
+| We currently only support            |          |                    |
+| decimalized currencies.              |          |                    |
++--------------------------------------+----------+--------------------+
+| \(3\) Booking Source                 | STYPE-   | STYPE-SNCF         |
+|                                      |          |                    |
+| This is the rail provider booking    |          |                    |
+| source. It is a drop-down menu of    |          |                    |
+| the supported providers.             |          |                    |
++--------------------------------------+----------+--------------------+
+| \(4\) Departure Country Code         | SCO-     | SCO-FR             |
+|                                      |          |                    |
+| This is the two-letter IATA          |          |                    |
+| departure country code.              |          |                    |
++--------------------------------------+----------+--------------------+
+| \(5\) Departure Station Name         | CODE-    | CODE-FRDHP         |
+|                                      |          |                    |
+| This is the departure station name   | NAME-    | NAME-PARIS         |
+| from the drop down provided and      |          | MONTPARNASSE 2     |
+| includes the departure rail station  |          | PASTEUR            |
+| code. Items in the list are supplier |          |                    |
+| specific.                            |          |                    |
++--------------------------------------+----------+--------------------+
+| \(6\) Confirmation Number            | CONF-    | CONF-A123456       |
+|                                      |          |                    |
+| This is where you will add the       |          | or                 |
+| provider reference if you have       |          |                    |
+| selected "Booked". This is only      |          | CONF-NA            |
+| mandatory when Booked is checked.    |          |                    |
+|                                      |          | (default value)    |
++--------------------------------------+----------+--------------------+
+| \(7\) Arrival Country Code           | CO-      | CO-GB              |
+|                                      |          |                    |
+| This is the two-letter IATA arrival  |          |                    |
+| country code.                        |          |                    |
+|                                      |          |                    |
+| It is a drop-down menu.              |          |                    |
++--------------------------------------+----------+--------------------+
+| \(8\) Arrival Station Name           | CODE-    | CODE-GBBLL         |
+|                                      |          |                    |
+| This is the arrival station name     | NAME-    | NAME-BLACKFRIARS   |
+| from the drop down provided and      |          | LONDON             |
+| includes the rail station code.      |          |                    |
+| Items in the list are supplier       |          |                    |
+| specific.                            |          |                    |
++--------------------------------------+----------+--------------------+
+| \(9\) Carrier Name                   | SUP-     | SUP-EUROSTAR       |
+|                                      |          |                    |
+| This is the carrier name in full.    |          |                    |
++--------------------------------------+----------+--------------------+
+| \(10\) Departure Date and Time       | DTE      | DTE-               |
+|                                      | -.../AT- | 2023-11-19/AT-0850 |
+| This is the departure date and time  |          |                    |
+| using the following format:          |          |                    |
+|                                      |          |                    |
+| -   Date is in the format            |          |                    |
+|     DD/MMM/YYYY                      |          |                    |
+|                                      |          |                    |
+| -   Time is in the format HHMM and   |          |                    |
+|     is 24 hours                      |          |                    |
++--------------------------------------+----------+--------------------+
+| \(11\) Arrival Date and Time         | DTE      | DTE-               |
+|                                      | -.../AT- | 2023-11-19/AT-1100 |
+| This is the arrival date and time    |          |                    |
+| using the following format:          |          |                    |
+|                                      |          |                    |
+| -   Date is in the format            |          |                    |
+|     DD/MMM/YYYY                      |          |                    |
+|                                      |          |                    |
+| -   Time is in the format HHMM and   |          |                    |
+|     is 24 hours                      |          |                    |
++--------------------------------------+----------+--------------------+
 
 ### Rail Tab one-way optional information
 
-<table>
-<colgroup>
-<col style="width: 55%" />
-<col style="width: 15%" />
-<col style="width: 29%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th><p>PNR Remark examples</p>
-<p>with default value information</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Booked</p>
-<p>Check the field “Booked” if you have confirmed the booking with the provider. “Confirmation Number” field will then become mandatory</p></td>
-<td>BKD-</td>
-<td><p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Confirmation Number</p>
-<p>This is where you add the provider confirmation number if applicable. This is optional if “Booked” is not checked.</p></td>
-<td>CONF-</td>
-<td><p>CONF-A12345</p>
-<p>or</p>
-<p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Class of Services</p>
-<p>This is the class of services in full.</p></td>
-<td>C-</td>
-<td><p>C-STANDARD</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Duration</p>
-<p>This is the trip duration in minutes.</p></td>
-<td>DUR-</td>
-<td><p>DUR-280</p>
-<p>(shows as DUR-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Train Number</p>
-<p>This is where you add the train number.</p></td>
-<td>TRN-</td>
-<td><p>TRN-4</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Wagon Number</p>
-<p>This is where you add the wagon number.</p></td>
-<td>WAG-</td>
-<td><p>WAG-8</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Seat Number</p>
-<p>This is where you add the seat number.</p></td>
-<td>SEAT-</td>
-<td><p>SEAT-1C</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Policy Compliance Level (%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-70</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Comments</p>
-<p>This is where you add any free text information.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-QUIET ZONE AVAILABLE</p>
-<p>(not shown if blank)</p></td>
-</tr>
-</tbody>
-</table>
++--------------------------------------+----------+--------------------+
+| File input                           | PNR      | PNR Remark         |
+|                                      | Remark   | examples           |
+| and description                      | label    |                    |
+|                                      |          | with default value |
+|                                      |          | information        |
++======================================+==========+====================+
+| Booked                               | BKD-     | BKD-FALSE          |
+|                                      |          |                    |
+| Check the field "Booked" if you have |          | (default value)    |
+| confirmed the booking with the       |          |                    |
+| provider. "Confirmation Number"      |          |                    |
+| field will then become mandatory     |          |                    |
++--------------------------------------+----------+--------------------+
+| Confirmation Number                  | CONF-    | CONF-A12345        |
+|                                      |          |                    |
+| This is where you add the provider   |          | or                 |
+| confirmation number if applicable.   |          |                    |
+| This is optional if "Booked" is not  |          | CONF-NA            |
+| checked.                             |          |                    |
+|                                      |          | (default value)    |
++--------------------------------------+----------+--------------------+
+| Class of Services                    | C-       | C-STANDARD         |
+|                                      |          |                    |
+| This is the class of services in     |          | (not shown if      |
+| full.                                |          | blank)             |
++--------------------------------------+----------+--------------------+
+| Duration                             | DUR-     | DUR-280            |
+|                                      |          |                    |
+| This is the trip duration in         |          | (shows as DUR-/ if |
+| minutes.                             |          | blank)             |
++--------------------------------------+----------+--------------------+
+| Train Number                         | TRN-     | TRN-4              |
+|                                      |          |                    |
+| This is where you add the train      |          | (not shown if      |
+| number.                              |          | blank)             |
++--------------------------------------+----------+--------------------+
+| Wagon Number                         | WAG-     | WAG-8              |
+|                                      |          |                    |
+| This is where you add the wagon      |          | (not shown if      |
+| number.                              |          | blank)             |
++--------------------------------------+----------+--------------------+
+| Seat Number                          | SEAT-    | SEAT-1C            |
+|                                      |          |                    |
+| This is where you add the seat       |          | (not shown if      |
+| number.                              |          | blank)             |
++--------------------------------------+----------+--------------------+
+| Segment Policy Compliant (True or    | CMPL-    | CMPL-True          |
+| False)                               |          |                    |
+|                                      |          | (not shown if      |
+| This will be a Boolean value True or |          | blank)             |
+| False                                |          |                    |
++--------------------------------------+----------+--------------------+
+| Comments                             | RMKS-    | RMKS-QUIET ZONE    |
+|                                      |          | AVAILABLE          |
+| This is where you add any free text  |          |                    |
+| information.                         |          | (not shown if      |
+|                                      |          | blank)             |
++--------------------------------------+----------+--------------------+
 
-## Rail Tab completion flow for round trip rail
+## 
 
-<img src="../media/Picture7.png" style="width:7.28358in;height:3.36112in" />
+## SEGMENT COUNTERS:
 
-***  
-***
+-   From this version we have added a new feature which keeps track of
+    number of segments added for each tab - air/car/hotel/rail
 
-## Rail Tab round trip screenshot examples
+-   The "Total Segments created" counter indicates Total number of
+    segments created.
 
-### Rail Tab round trip input display
+-   The limit on Total number of segments to be created will be set in
+    the variable "**constSegCount**"
 
-<img src="../media/image10.png" style="width:6.6791in;height:2.18986in" />
+![](./images/media/image9.png){width="6.7769006999125105in"
+height="1.093416447944007in"}
 
-### Rail Tab round trip output display
-
-<img src="../media/image11.png" style="width:6.69375in;height:2.89653in" />
-
-## Rail Tab round trip table of definitions
-
-### Rail Tab round trip mandatory information
-
-<table>
-<colgroup>
-<col style="width: 47%" />
-<col style="width: 21%" />
-<col style="width: 30%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th>PNR Remark examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>RAIL – Round Trip</p>
-<p>This is the tab name and the segment type.</p></td>
-<td>SEG-</td>
-<td><p>SEG-RAIL1</p>
-<p>SEG-RAIL2</p></td>
-</tr>
-<tr class="even">
-<td><p>(1) Currency</p>
-<p>This is the three-letter ISO standard code for the currency used (eg GBP, EUR).</p></td>
-<td>CURR-</td>
-<td>CURR-EUR</td>
-</tr>
-<tr class="odd">
-<td><p>(2) Fare</p>
-<p>This is the total amount of the rail segment.</p>
-<p>Automatically formatted to 2 decimal places if not typed.</p>
-<p>We currently only support decimalized currencies.</p></td>
-<td>VAL-</td>
-<td>VAL-250.00</td>
-</tr>
-<tr class="even">
-<td><p>(3) Booking Source</p>
-<p>This is the rail provider booking source. It is a drop-down menu of currently supported rail providers.</p></td>
-<td>TYPE-</td>
-<td>TYPE-2C</td>
-</tr>
-<tr class="odd">
-<td><p>(4) Departure Country Code</p>
-<p>This is the two-letter IATA departure country code.</p></td>
-<td>CO-</td>
-<td>CO-FR</td>
-</tr>
-<tr class="even">
-<td><p>(5) Departure Station Name</p>
-<p>This is the departure station name from the drop down provided and includes the departure rail station code.</p>
-<p>Items in the list are supplier specific.</p></td>
-<td><p>CODE-</p>
-<p>NAME-</p></td>
-<td><p>CODE-FRDHP</p>
-<p>NAME-PARIS MONTPARNASSE 2 PASTEUR</p></td>
-</tr>
-<tr class="odd">
-<td><p>(6) Confirmation Number</p>
-<p>This is where you will add the provider reference if you have selected “Booked”.</p>
-<p>This is only mandatory when “Booked” is checked.</p></td>
-<td>CONF-</td>
-<td><p>CONF-A123456</p>
-<p>or</p>
-<p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>(7) Arrival Country Code</p>
-<p>This is the two-letter IATA arrival country code.</p>
-<p>It is a drop-down menu.</p></td>
-<td>CO-</td>
-<td>CO-GB</td>
-</tr>
-<tr class="odd">
-<td><p>(8) Arrival Station Name</p>
-<p>This is the arrival station name from the drop down provided in the file and includes the rail station code.</p>
-<p>Items in the list are supplier specific.</p></td>
-<td><p>CODE-</p>
-<p>NAME-</p></td>
-<td><p>CODE-GBBLL</p>
-<p>NAME-BLACKFRIARS LONDON</p></td>
-</tr>
-<tr class="even">
-<td><p>(9) Carrier Name</p>
-<p>This is the carrier name in full.</p></td>
-<td>SUP-</td>
-<td>SUP-EUROSTAR</td>
-</tr>
-<tr class="odd">
-<td><p>(10) Departure Date and Time</p>
-<p>This is the departure date and time using the following format:</p>
-<ul>
-<li><p>Date is in the format DD/MMM/YYYY</p></li>
-<li><p>Time is in the format HHMM and is 24 hours</p></li>
-</ul></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-06-29/AT-0850</td>
-</tr>
-<tr class="even">
-<td><p>(11) Arrival Date and Time</p>
-<p>This is the arrival date and time using the following format:</p>
-<p>• Date is in the format DD/MMM/YYYY</p>
-<p>• Time is in the format HHMM and is 24 hours</p></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-07-29/AT-1100</td>
-</tr>
-<tr class="odd">
-<td><p>(12) Return Departure Date</p>
-<p>This is the return departure date and time using the following format:</p>
-<p>• Date is in the format DD/MMM/YYYY</p>
-<p>• Time is in the format HHMM and is 24 hours</p></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-07-02/AT-0820</td>
-</tr>
-<tr class="even">
-<td><p>(13) Return Arrival Date</p>
-<p>This is the return arrival date and time using the following format:</p>
-<p>• Date is in the format DD/MMM/YYYY</p>
-<p>• Time is in the format HHMM and is 24 hours</p></td>
-<td>DTE-…/AT-</td>
-<td>DTE-2021-07-02/AT-1000</td>
-</tr>
-<tr class="odd">
-<td><p>(14) Return Carrier Name</p>
-<p>This is the return carrier name in full.</p></td>
-<td>SUP-</td>
-<td>SUP-THALYS</td>
-</tr>
-</tbody>
-</table>
-
-*  
-*
-
-### Rail Tab round trip optional information
-
-<table>
-<colgroup>
-<col style="width: 43%" />
-<col style="width: 20%" />
-<col style="width: 36%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>File input</p>
-<p>and description</p></th>
-<th>PNR Remark label</th>
-<th><p>PNR Remark examples</p>
-<p>with default values</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Booked</p>
-<p>Check the field “Booked” if you have confirmed the booking with the provider. The “Confirmation Number” field will then become mandatory.</p></td>
-<td>BKD-</td>
-<td><p>BKD-FALSE</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="even">
-<td><p>Confirmation Number</p>
-<p>This is where you add the provider confirmation number if applicable.</p>
-<p>This is optional when “Booked” is not selected.</p></td>
-<td>CONF-</td>
-<td><p>CONF-B12345</p>
-<p>or</p>
-<p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Class of Services</p>
-<p>This is the class of services in full, not just the letter.</p></td>
-<td>C-</td>
-<td><p>C-STANDARD</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Duration</p>
-<p>This is the trip duration in minutes.</p></td>
-<td>DUR-</td>
-<td><p>DUR-280</p>
-<p>(shows as DUR-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Train Number</p>
-<p>This is where you add the train number.</p></td>
-<td>TRN-</td>
-<td><p>TRN-4</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Wagon Number</p>
-<p>This is where you add the wagon number.</p></td>
-<td>WAG-</td>
-<td><p>WAG-8</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Seat Number</p>
-<p>This is where you add the seat number.</p></td>
-<td>SEAT-</td>
-<td><p>SEAT-1C</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Policy Compliance Level (%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-70</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Comments</p>
-<p>This is where you add any free text information.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-QUIET ZONE AVAILABLE</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Confirmation Number</p>
-<p>This is where you add the provider confirmation number if the rail travel has been booked directly with the provider.</p>
-<p>This is optional if “Booked” is not selected.</p></td>
-<td>CONF-</td>
-<td><p>CONF-NA</p>
-<p>(default value)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Class of Services</p>
-<p>This is the class of services in full, not just the letter.</p></td>
-<td>C-</td>
-<td><p>C-STANDARD</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Duration</p>
-<p>This is the return trip duration in minutes.</p></td>
-<td>DUR-</td>
-<td><p>DUR-60</p>
-<p>(shows as DUR-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Train Number</p>
-<p>This is where you add the train number.</p></td>
-<td>TRN-</td>
-<td><p>TRN-Z202</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Wagon Number</p>
-<p>This is where you add the wagon number.</p></td>
-<td>WAG-</td>
-<td><p>WAG-G2</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Seat Number</p>
-<p>This is where you add the seat number.</p></td>
-<td>SEAT-</td>
-<td><p>SEAT-24A</p>
-<p>(not shown if blank)</p></td>
-</tr>
-<tr class="even">
-<td><p>Return Policy Compliance Level (%)</p>
-<p>This will be a value between 0-100 that matches the segment compliance (100 if fully compliant and 0 if not compliant at all).</p></td>
-<td>LVL-</td>
-<td><p>LVL-100</p>
-<p>(shows as LVL-/ if blank)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Return Comments</p>
-<p>This is where you add any free text information.</p></td>
-<td>RMKS-</td>
-<td><p>RMKS-HERE ARE THE COMMENTS RELATED TO THE RETURN TRAVEL</p>
-<p>(not shown if blank)</p></td>
-</tr>
-</tbody>
-</table>
+## 
 
 ## CONCATENATION
 
@@ -1659,23 +1083,46 @@ minimum number of copy and paste actions is required.
 For more information on configuring concatenation, please see
 [Configuration](#configuration) above.
 
-<u>Example of blocks:</u>
+[Example of blocks:]{.underline}
 
-@:5P/APTR/33/PROP1/SEG-RAIL1/BKD-FALSE+@:5P/APTR/57/PROP1/SEG-RAIL1/RMKS-NO
-OTHER PLACES AVAILABLE //+@:5P/APTR/30/PROP1/SEG-RAIL1/IN
-ECO+@:5P/APTR/31/PROP1/SEG-RAIL1/CONF-NA+@:5P/APTR/46/PROP1/SEG-RAIL1/DTE-2021-06-29/AT-0650+@:5P/APTR/46/PROP1/SEG-RAIL1/DTE-2021-06-29/AT-1100+@:5P/APTR/41/PROP1/SEG-RAIL1/PNR-2NCMIA/LVL-70+@:5P/APTR/36/PROP1/SEG-RAIL1/SUP-EUROSTAR+@:5P/APTR/50/PROP1/SEG-RAIL1/S/CO-FR/CODE-FRDHP/TYPE-2C
+@:5P/APTR/54/PROP1/GEN/LIMIT-2023-03-31T102500.000ZPLUS0000+@:5P/APTR/27/PROP1/GEN/BKD-FALSE+@:5P/APTR/53/PROP1/GEN/RMKS-GENERAL
+TAB COMMENTS FREE TEXT+@:5P/APTR/28/PROP1/GEN/LOC-2NCMIA
 
-@:5P/APTR/57/PROP1/SEG-RAIL1/NAME-PARIS MONTPARNASSE 2
-PASTEUR+@:5P/APTR/50/PROP1/SEG-RAIL1/E/CO-GB/CODE-GBBLL/TYPE-2C+@:5P/APTR/47/PROP1/SEG-RAIL1/NAME-BLACKFRIARS
-LONDON+@:5P/APTR/38/PROP1/SEG-RAIL1/CURR-EUR/VAL-0+@:5P/APTR/39/PROP1/SEG-RAIL1/C-FIRST/DUR-280+@:5P/APTR/35/PROP1/SEG-RAIL1/TRN-4/WAG-8+@:5P/APTR/31/PROP1/SEG-RAIL1/SEAT-1C+@:5P/APTR/33/PROP1/SEG-RAIL2/BKD-FALSE+@:5P/APTR/53/PROP1/SEG-RAIL2/RMKS-HERE
-ARE THE COMMENTS //
+@:5P/APTR/55/PROP1/SEG-AIR1/BKD-FALSE/RMKS-AIR COMMENTS
+TEST+@:5P/APTR/46/PROP1/SEG-AIR1/SDTE-2023-11-17/ST-0930+@:5P/APTR/57/PROP1/SEG-AIR1/EDTE-2023-11-17/ET-1130/PNR-2NCMIA+@:5P/APTR/44/PROP1/SEG-AIR1/CMPL-TRUE/CONF-ABCDEF+@:5P/APTR/40/PROP1/SEG-AIR1/C-ECONOMY/DUR-150+@:5P/APTR/39/PROP1/SEG-AIR1/FN-BA258/SEAT-2C+@:5P/APTR/32/PROP1/SEG-AIR1/SIATA-LHR+@:5P/APTR/32/PROP1/SEG-AIR1/EIATA-CDG+@:5P/APTR/30/PROP1/SEG-AIR1/EQP-757
 
-@:5P/APTR/50/PROP1/SEG-RAIL2/RELATED TO THE INBOUND
-LEG+@:5P/APTR/31/PROP1/SEG-RAIL2/CONF-NA+@:5P/APTR/46/PROP1/SEG-RAIL2/DTE-2021-07-02/AT-0820+@:5P/APTR/46/PROP1/SEG-RAIL2/DTE-2021-07-02/AT-1000+@:5P/APTR/40/PROP1/SEG-RAIL2/PNR-2NCMIA/LVL-/+@:5P/APTR/34/PROP1/SEG-RAIL2/SUP-THALYS+@:5P/APTR/50/PROP1/SEG-RAIL2/S/CO-GB/CODE-GBBLL/TYPE-2C+@:5P/APTR/47/PROP1/SEG-RAIL2/NAME-BLACKFRIARS
-LONDON+@:5P/APTR/50/PROP1/SEG-RAIL2/E/CO-FR/CODE-FRDHP/TYPE-2C
+@:5P/APTR/40/PROP1/SEG-AIR1/TD-NORTH/TA-SOUTH+@:5P/APTR/42/PROP1/SEG-AIR1/CURR-USD/VAL-0.00
 
-@:5P/APTR/57/PROP1/SEG-RAIL2/NAME-PARIS MONTPARNASSE 2
-PASTEUR+@:5P/APTR/43/PROP1/SEG-RAIL2/CURR-EUR/VAL-250.00+@:5P/APTR/29/PROP1/SEG-RAIL2/DUR-/+@:5P/APTR/35/PROP1/SEG-RAIL2/TRN-6/WAG-8
+@:5P/APTR/32/PROP1/SEG-AIR2/BKD-FALSE+@:5P/APTR/52/PROP1/SEG-AIR2/RMKS-RETURN
+AIR COMMENTS
+TEST+@:5P/APTR/46/PROP1/SEG-AIR2/SDTE-2023-11-20/ST-0930+@:5P/APTR/57/PROP1/SEG-AIR2/EDTE-2023-11-20/ET-1130/PNR-2NCMIA+@:5P/APTR/44/PROP1/SEG-AIR2/CMPL-TRUE/CONF-ABDDEE+@:5P/APTR/40/PROP1/SEG-AIR2/C-ECONOMY/DUR-150+@:5P/APTR/39/PROP1/SEG-AIR2/FN-BA258/SEAT-2C+@:5P/APTR/32/PROP1/SEG-AIR2/SIATA-CDG+@:5P/APTR/32/PROP1/SEG-AIR2/EIATA-LHR
+
+@:5P/APTR/30/PROP1/SEG-AIR2/EQP-757+@:5P/APTR/40/PROP1/SEG-AIR2/TD-SOUTH/TA-NORTH+@:5P/APTR/42/PROP1/SEG-AIR2/CURR-USD/VAL-215.00
+
+@:5P/APTR/57/PROP1/SEG-CAR1/BKD-FALSE/RMKS-CAR COMMENT
+EXAMPLE+@:5P/APTR/34/PROP1/SEG-CAR1/CONF-ABCDEF+@:5P/APTR/46/PROP1/SEG-CAR1/SDTE-2023-11-17/ST-1200+@:5P/APTR/46/PROP1/SEG-CAR1/EDTE-2023-11-17/ET-1430+@:5P/APTR/34/PROP1/SEG-CAR1/SCODE-FRPLD+@:5P/APTR/34/PROP1/SEG-CAR1/ECODE-FRLYS+@:5P/APTR/43/PROP1/SEG-CAR1/PNR-2NCMIA/CMPL-TRUE+@:5P/APTR/31/PROP1/SEG-CAR1/SUP-AVIS+@:5P/APTR/51/PROP1/SEG-CAR1/SCO-FR/SCITY-PARIS/SIATA-PAR
+
+@:5P/APTR/50/PROP1/SEG-CAR1/ECO-FR/ECITY-LYON/EIATA-LYS+@:5P/APTR/30/PROP1/SEG-CAR1/AC-TRUE+@:5P/APTR/29/PROP1/SEG-CAR1/TRAN-A+@:5P/APTR/32/PROP1/SEG-CAR1/C-COMPACT+@:5P/APTR/38/PROP1/SEG-CAR1/PUPH-1233333333+@:5P/APTR/37/PROP1/SEG-CAR1/DOPH-415747777+@:5P/APTR/51/PROP1/SEG-CAR1/PU-FALSE/DO-TRUE/EQP-SAT
+NAV+@:5P/APTR/41/PROP1/SEG-CAR1/SNOTE-RAIL
+STATION+@:5P/APTR/48/PROP1/SEG-CAR1/ENOTE-AT HILTON RECEPTION
+
+@:5P/APTR/42/PROP1/SEG-CAR1/CURR-USD/VAL-150.00
+
+@:5P/APTR/54/PROP1/SEG-HOT1/BKD-FALSE/RMKS-24HR CXX POLICY
++@:5P/APTR/34/PROP1/SEG-HOT1/CONF-ABCDEF+@:5P/APTR/43/PROP1/SEG-HOT1/SDTE-2023-11-17/ST-/+@:5P/APTR/43/PROP1/SEG-HOT1/EDTE-2023-11-20/ET-/+@:5P/APTR/34/PROP1/SEG-HOT1/SCODE-GBLHR+@:5P/APTR/43/PROP1/SEG-HOT1/PNR-2NCMIA/CMPL-TRUE+@:5P/APTR/35/PROP1/SEG-HOT1/SUP-SHERATON+@:5P/APTR/52/PROP1/SEG-HOT1/SCO-GB/SCITY-LONDON/SIATA-LHR+@:5P/APTR/41/PROP1/SEG-HOT1/HTLNAME-LEA
+PALACE
+
+@:5P/APTR/34/PROP1/SEG-HOT1/ROOM-DOUBLE+@:5P/APTR/38/PROP1/SEG-HOT1/PH-0044
+1256321+@:5P/APTR/36/PROP1/SEG-HOT1/NOTE-DOWNTOWN+@:5P/APTR/42/PROP1/SEG-HOT1/CURR-USD/VAL-125.20+@:5P/APTR/45/PROP1/SEG-HOT1/ADD-ASTON
+ROAD, LONDON+@:5P/APTR/35/PROP1/SEG-HOT1/ZIP-LW45 6ER
+
+@:5P/APTR/33/PROP1/SEG-RAIL1/BKD-FALSE+@:5P/APTR/50/PROP1/SEG-RAIL1/RMKS-QUIET
+ZONE AVAILABLE
++@:5P/APTR/36/PROP1/SEG-RAIL1/CONF-A123456+@:5P/APTR/47/PROP1/SEG-RAIL1/SDTE-2023-11-19/ST-0850+@:5P/APTR/47/PROP1/SEG-RAIL1/EDTE-2023-11-19/ET-1100+@:5P/APTR/44/PROP1/SEG-RAIL1/PNR-2NCMIA/CMPL-TRUE+@:5P/APTR/36/PROP1/SEG-RAIL1/SUP-EUROSTAR+@:5P/APTR/51/PROP1/SEG-RAIL1/SCO-FR/SCODE-FRDHP/STYPE-2C+@:5P/APTR/57/PROP1/SEG-RAIL1/NAME-PARIS
+MONTPARNASSE 2 PASTEUR
+
+@:5P/APTR/51/PROP1/SEG-RAIL1/ECO-GB/ECODE-GBBLL/ETYPE-2C+@:5P/APTR/47/PROP1/SEG-RAIL1/NAME-BLACKFRIARS
+LONDON+@:5P/APTR/43/PROP1/SEG-RAIL1/CURR-USD/VAL-250.00+@:5P/APTR/42/PROP1/SEG-RAIL1/C-STANDARD/DUR-280+@:5P/APTR/35/PROP1/SEG-RAIL1/TRN-4/WAG-8+@:5P/APTR/31/PROP1/SEG-RAIL1/SEAT-1C
 
 # REMARK SEPARATORS
 
@@ -1701,67 +1148,157 @@ Double slash example:
 
 # VERSION HISTORY
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 66%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Data Formatter for Concur Request Version Number</strong></th>
-<th>Amendments dates</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>V2.10</p>
-<p>v2.11</p>
-<p>v2.12</p>
-<p>v2.12.1</p></td>
-<td><p><strong>02Jun21</strong></p>
-<p>ALL TABS :</p>
-<ul>
-<li><p>Time - can now be entered manually only</p></li>
-<li><p>Date - user can manually enter the date or use the calendar</p>
-<p>AIR, CAR, HOTEL and RAIL TABS:</p></li>
-<li><p>Fare/Rate - two decimals will be added automatically if not entered in the corresponding field</p></li>
-<li><p>Policy compliance - accept only numeric value between 0 and 100</p>
-<p>AIR and RAIL TABS:</p></li>
-<li><p>Policy compliance - will now show for each leg in case of return trips</p>
-<p>AIR TAB:</p></li>
-<li><p>Departure/Arrival Details - Mandatory and Optional information are now on the same block for the air one-way segment</p></li>
-<li><p>Return Details - Mandatory and optional information are now on the same block</p>
-<p>RAIL TAB:</p></li>
-<li><p>Departure/Arrival Details - Mandatory and optional information are now on the same block for the rail one-way segment</p></li>
-<li><p>Return Details - Mandatory and optional information are now on the same block</p>
-<p>CAR TAB:</p></li>
-<li><p>Drop Off Details - this field is now optional</p>
-<p>OPTIONAL INFORMATION</p></li>
-<li><p>We will show the data in the remarks only if the value is entered in the file.(please refer to each optional field for each segment</p>
-<p><strong>07Jun21</strong></p>
-<p>CAR TAB</p></li>
-<li><p>Location data has now been added</p></li>
-<li><p>Drop Off Details is now optional</p></li>
-</ul>
-<p>ALL TABS</p>
-<ul>
-<li><p>Currency fields will now accept only alpha characters</p></li>
-</ul>
-<p>AIR and RAIL TAB</p>
-<ul>
-<li><p>For return trips we have now all the information boxes on the same page</p>
-<p>GENERATE CODE</p></li>
-<li><p>Introduction of the concatenation of the remarks</p>
-<p><strong>28Jun21</strong></p></li>
-<li><p>Concatenation has been implemented</p></li>
-<li><p>Bug fixes (Hotel Phone now populated in the remarks when added, double “/” in the car remarks)</p>
-<p><strong>30Jun21</strong></p></li>
-<li><p>File name has been updated</p></li>
-<li><p>UI updates (adding “Return” before “Confirmation number” and “Policy Compliance Level” fields)</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
++----------------------+-----------------------------------------------+
+| **Data Formatter for | Amendments dates                              |
+| Concur Request       |                                               |
+| Version Number**     |                                               |
++======================+===============================================+
+| V2.10                | **02Jun21**                                   |
+|                      |                                               |
+| v2.11                | ALL TABS :                                    |
+|                      |                                               |
+| v2.12                | -   Time - can now be entered manually only   |
+|                      |                                               |
+| v2.12.1              | -   Date - user can manually enter the date   |
+|                      |     or use the calendar                       |
+| v2.12.2              |                                               |
+|                      |     AIR, CAR, HOTEL and RAIL TABS:            |
+|                      |                                               |
+|                      | -   Fare/Rate - two decimals will be added    |
+|                      |     automatically if not entered in the       |
+|                      |     corresponding field                       |
+|                      |                                               |
+|                      | -   Policy compliance - accept only numeric   |
+|                      |     value between 0 and 100                   |
+|                      |                                               |
+|                      |     AIR and RAIL TABS:                        |
+|                      |                                               |
+|                      | -   Policy compliance - will now show for     |
+|                      |     each leg in case of return trips          |
+|                      |                                               |
+|                      |     AIR TAB:                                  |
+|                      |                                               |
+|                      | -   Departure/Arrival Details - Mandatory and |
+|                      |     Optional information are now on the same  |
+|                      |     block for the air one-way segment         |
+|                      |                                               |
+|                      | -   Return Details - Mandatory and optional   |
+|                      |     information are now on the same block     |
+|                      |                                               |
+|                      |     RAIL TAB:                                 |
+|                      |                                               |
+|                      | -   Departure/Arrival Details - Mandatory and |
+|                      |     optional information are now on the same  |
+|                      |     block for the rail one-way segment        |
+|                      |                                               |
+|                      | -   Return Details - Mandatory and optional   |
+|                      |     information are now on the same block     |
+|                      |                                               |
+|                      |     CAR TAB:                                  |
+|                      |                                               |
+|                      | -   Drop Off Details - this field is now      |
+|                      |     optional                                  |
+|                      |                                               |
+|                      |     OPTIONAL INFORMATION                      |
+|                      |                                               |
+|                      | -   We will show the data in the remarks only |
+|                      |     if the value is entered in the            |
+|                      |     file.(please refer to each optional field |
+|                      |     for each segment                          |
+|                      |                                               |
+|                      |     **07Jun21**                               |
+|                      |                                               |
+|                      |     CAR TAB                                   |
+|                      |                                               |
+|                      | -   Location data has now been added          |
+|                      |                                               |
+|                      | -   Drop Off Details is now optional          |
+|                      |                                               |
+|                      | ALL TABS                                      |
+|                      |                                               |
+|                      | -   Currency fields will now accept only      |
+|                      |     alpha characters                          |
+|                      |                                               |
+|                      | AIR and RAIL TAB                              |
+|                      |                                               |
+|                      | -   For return trips we have now all the      |
+|                      |     information boxes on the same page        |
+|                      |                                               |
+|                      |     GENERATE CODE                             |
+|                      |                                               |
+|                      | -   Introduction of the concatenation of the  |
+|                      |     remarks                                   |
+|                      |                                               |
+|                      |     **28Jun21**                               |
+|                      |                                               |
+|                      | -   Concatenation has been implemented        |
+|                      |                                               |
+|                      | -   Bug fixes (Hotel Phone now populated in   |
+|                      |     the remarks when added, double "/" in the |
+|                      |     car remarks)                              |
+|                      |                                               |
+|                      |     **30Jun21**                               |
+|                      |                                               |
+|                      | -   File name has been updated                |
+|                      |                                               |
+|                      | -   UI updates (adding "Return" before        |
+|                      |     "Confirmation number" and "Policy         |
+|                      |     Compliance Level" fields)                 |
+|                      |                                               |
+|                      |     **03Aug21**                               |
+|                      |                                               |
+|                      | ```{=html}                                    |
+|                      | <!-- -->                                      |
+|                      | ```                                           |
+|                      | -   Airline name removed from One Way and     |
+|                      |     Return                                    |
++----------------------+-----------------------------------------------+
 
-N.B. This document v1.2 is a guide for the file v2.12 and supersedes any
++----------------------+-----------------------------------------------+
+| **Data Formatter for | Amendments dates                              |
+| Concur Request       |                                               |
+| Version Number**     |                                               |
++======================+===============================================+
+| V3.0                 | **31Jan22**                                   |
+|                      |                                               |
+|                      | ALL TABS :                                    |
+|                      |                                               |
+|                      | -   Currency removed from all tabs and moved  |
+|                      |     to common section as a single field       |
+|                      |                                               |
+|                      |     GENERAL TAB:                              |
+|                      |                                               |
+|                      | -   General tab is removed, and all the       |
+|                      |     fields are moved to common section.       |
+|                      |                                               |
+|                      |     AIR, CAR, HOTEL and RAIL TABS:            |
+|                      |                                               |
+|                      | -   Meals has been removed from Air Tab       |
+|                      |                                               |
+|                      | -   Option to Add multiple segments for each  |
+|                      |     tab                                       |
+|                      |                                               |
+|                      | -   Multi city segment feature has been added |
+|                      |                                               |
+|                      | -   Added segment counters for each tab.      |
+|                      |                                               |
+|                      |     Generate GDS code Section:                |
+|                      |                                               |
+|                      | ```{=html}                                    |
+|                      | <!-- -->                                      |
+|                      | ```                                           |
+|                      | -   This section enables to generate code for |
+|                      |     each GDS without reentering values for    |
+|                      |     each segment.                             |
++----------------------+-----------------------------------------------+
+| V3.1                 | **01MAR23**                                   |
+|                      |                                               |
+|                      | ALL TABS :                                    |
+|                      |                                               |
+|                      | -   Policy compliant level field is renamed   |
+|                      |     to "Segment Policy Compliant" and is now  |
+|                      |     Boolean value (True or False).            |
++----------------------+-----------------------------------------------+
+
+N.B. This document v3.1 is a guide for the file v3.3 and supersedes any
 previous documentation
