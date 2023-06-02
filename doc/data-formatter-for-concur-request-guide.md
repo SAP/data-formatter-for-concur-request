@@ -1,4 +1,4 @@
-![](./images/media/image1.jpeg){width="6.692913385826771in"
+![](./media/image1.jpeg){width="6.692913385826771in"
 height="3.374015748031496in"}
 
 PUBLIC
