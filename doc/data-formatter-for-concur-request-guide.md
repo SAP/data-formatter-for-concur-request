@@ -1,4 +1,4 @@
-![](./media/image1.jpeg){width="6.692913385826771in"
+![](../media/image1.jpeg){width="6.692913385826771in"
 height="3.374015748031496in"}
 
 PUBLIC
@@ -205,7 +205,7 @@ General Remarks.
 
 # 
 
-# ![](./images/media/image3.png){width="6.7000360892388455in" height="3.3391338582677164in"}
+# ![](../media/image3.png){width="6.7000360892388455in" height="3.3391338582677164in"}
 
 # 
 
@@ -227,7 +227,7 @@ N.B. This document uses Apollo remark examples only.
 
 ## General Section screenshot example
 
-![](./images/media/image4.png){width="6.69375in"
+![](../media/image4.png){width="6.69375in"
 height="2.752083333333333in"}
 
 This step must be performed for each proposal before adding the related
@@ -357,7 +357,7 @@ This will be the landing page when the file is opened.
 
 ### Air Tab screenshot example
 
-![](./images/media/image5.png){width="6.69375in"
+![](../media/image5.png){width="6.69375in"
 height="3.097916666666667in"}
 
 N.B. The summary of each segment will be displayed as a row under the
@@ -511,7 +511,7 @@ segment should be added.
 
 ## Car Tab screenshot example
 
-![](./images/media/image6.png){width="6.69375in"
+![](../media/image6.png){width="6.69375in"
 height="2.8305555555555557in"}
 
 N.B. The summary of each segment will be displayed as a row under the
@@ -719,7 +719,7 @@ are added.
 
 ## Hotel Tab completion flow
 
-## Hotel Tab ![](./images/media/image7.png){width="6.69375in" height="2.939583333333333in"}
+## Hotel Tab ![](../media/image7.png){width="6.69375in" height="2.939583333333333in"}
 
 N.B. The summary of each segment will be displayed as a row under the
 "Total Hotel Segments". The segment counter will be incremented once
@@ -885,7 +885,7 @@ This is where all the details regarding the rail segment are added.
 
 ## Rail Tab one-way screenshot example
 
-![](./images/media/image8.png){width="6.69375in"
+![](../media/image8.png){width="6.69375in"
 height="2.8493055555555555in"}
 
 N.B. The summary of each segment will be displayed as a row under the
@@ -1068,7 +1068,7 @@ segment is added
 -   The limit on Total number of segments to be created will be set in
     the variable "**constSegCount**"
 
-![](./images/media/image9.png){width="6.7769006999125105in"
+![](../media/image9.png){width="6.7769006999125105in"
 height="1.093416447944007in"}
 
 ## 
